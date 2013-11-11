@@ -41,3 +41,34 @@ function logOut(){
     clearCurrentUser();
     showLoggedOutView();
 }
+
+/**
+ * This function is called when the user wants to create a new Movie in the List
+ */
+function createNewItem(){
+    var title = getNewMovieTitle();
+
+    //Generate the new Object
+    var item = {
+      "name": title,
+      "isSeen": false,
+      "ration": null
+    };
+
+    var viewable;
+
+    //React if Movie was seen
+    if(item.isSeen){
+        //Generate Code
+
+    }else{
+        //Generate Code
+        viewable = createIsntSeenObject(item);
+    }
+
+    //Save item to Parse
+    saveItemToParse(item);
+
+    //Append the Item
+    appendNewMovie(viewable);
+}

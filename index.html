@@ -30,6 +30,8 @@
     <script type="text/javascript" src="js/model.js"></script>
     <!-- Controller import -->
     <script type="text/javascript" src="js/controller.js"></script>
+    <!-- Helper import -->
+    <script type="text/javascript" src="js/helper.js"></script>
 
     <!-- Document Ready -->
     <script type="text/javascript">
@@ -68,13 +70,16 @@
         <!-- Here will be the table -->
         <div id="tableContainer">
             <table id="movieList" class="table table-striped">
-                <thead>
+                <thead id='tableHead'>
                     <th>Titel</th>
                     <th>Gesehen</th>
                     <th>Bewertung</th>
-                    <th>Werkzeuge</th>
-                    <th>Erweitert</th>
+                    <th id="toolHead" class="toolBar"></th>
+                    <th>Info</th>
                 </thead>
+                <tbody id="tableBody">
+
+                </tbody>
             </table>
         </div>
     </div>

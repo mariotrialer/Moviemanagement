@@ -43,6 +43,9 @@ function clearCurrentUser(){
     Parse.User.logOut();
 }
 
+/**
+ * This function is temporaryly used to create a new User on Parse
+ */
 function createNewUser(){
     var user = new Parse.User();
     user.set("username", "mariotrialer");
@@ -56,6 +59,28 @@ function createNewUser(){
         error: function(user, error) {
             // Show the error message somewhere and let the user try again.
             alert("Error: " + error.code + " " + error.message);
+        }
+    });
+}
+
+/**
+ * This function saves a new Movie to Parse
+ * @param movie
+ */
+function saveItemToParse(film){
+    var Movie = Parse.Object.extend("Movie");
+    var movie = new Movie();
+
+    movie.set("title", film.title);
+    movie.set("isSeen", film.isSeen);
+    movie.set("ration", film.ration);
+
+    movie.save(null, {
+        success: function(movie){
+            alert("Gespeichert");
+        },
+        error: function(){
+
         }
     });
 }

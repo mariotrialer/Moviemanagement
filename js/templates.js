@@ -35,9 +35,36 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
                         "</div>";
 
 
-
+/**
+ * This is the Template for the Area where the user can create new Movies
+ * @type {string}
+ */
 var addFieldTemplate = "<div id='wrapper'>" +
                              "<h4>Neuen Film speichern</h4>" +
                              "<input type='text' id='movieTitle' class='input-sm' placeholder='Titel'/>" +
-                             "<button id='storeButton' class='btn btn-primary input-sm'>Speichern</button>" +
+                             "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm'>Speichern</button>" +
                          "</div>";
+
+/**
+ * This is the Template for a new Row in the List
+ * @type {string}
+ */
+var listRowTemplate = "<tr id='<%= item.row%>'>" +
+                          "<td id='<%= item.titleCell %>'><%= item.name %></td>" +
+                          "<td id='<%= item.seenCell %>'><%= item.isSeenHtml %></td>" +
+                          "<td id='<%= item.rateCell %>'><%= item.ration %></td>" +
+                          "<td id='<%= item.toolBar %>'></td>" +
+                          "<td><button class='btn btn-sm btn-default btn-lg' onclick=''>" +
+                             "<span class='glyphicon glyphicon-align-justify'>&nbsp Info</span>" +
+                          "</button></td>" +
+                      "</tr>";
+
+/**
+ * This is the Template for adding a toolbar
+ * @type {string}
+ */
+var toolBarTemplate = "<td class='toolBar'>" +
+                          "<button class='btn btn-sm btn-default btn-lg'>" +
+                             "<span class='glyphicon glyphicon-edit'></span>" +
+                          "</button>" +
+                      "</td>";
