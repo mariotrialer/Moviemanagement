@@ -9,7 +9,7 @@ function toggleLogoutButton(){
 }
 
 /**
- * This function toggles the Login Button to the title bar
+ * This function toggles the Login Buttons to the title bar
  */
 function toggleLoginButton(){
     $("#buttonContainer").hide();
