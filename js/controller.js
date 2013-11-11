@@ -24,7 +24,6 @@ function checkAuthentificationState(){
  */
 function deleteLoginArea(){
     removeLoginArea();
-    toggleLoginButton();
 }
 
 /**
@@ -32,12 +31,7 @@ function deleteLoginArea(){
  */
 function signIn(){
     var dataEntered = getLoginData();
-    var isRight = loginUser(dataEntered);
-    alert(JSON.stringify(isRight));
-    //Update the View
-    if(isRight){
-        showLoggedInView();
-    }
+    loginUser(dataEntered);
 }
 
 /**

@@ -36,6 +36,7 @@ function toggleLoginArea(){
  */
 function removeLoginArea(){
     $("#loginArea").slideUp();
+    toggleLoginButton();
     $("#loginFormContainer").remove();
 }
 
@@ -55,10 +56,21 @@ function getLoginData(){
 }
 
 function showLoggedInView(){
-    toggleLogoutButton();
     deleteLoginArea();
+    toggleLogoutButton();
+    toggleAddArea();
 }
 
 function showLoggedOutView(){
     toggleLoginButton();
+    removeAddArea();
+}
+
+function toggleAddArea(){
+    var output = _.template(addFieldTemplate, {});
+    $("#addMovieContainer").html(output);
+}
+
+function removeAddArea(){
+    $("#addMovieContainer").html("");
 }

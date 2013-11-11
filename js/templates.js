@@ -2,7 +2,7 @@
  * This is the Template for the Logout-Button
  * @type {string}
  */
-var logoutButtonTemplate = "<button id='logoutButton' onclick='logOut();' class='btn btn-success'>" +
+var logoutButtonTemplate = "<button id='logoutButton' onclick='logOut();' class='btn btn-danger'>" +
                                 "Logout" +
                            "</button>";
 
@@ -33,3 +33,11 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
                             "</div style='clear: both;'>" +
                             "<button class='btn btn-success' onclick='signIn();'>Login</button>"
                         "</div>";
+
+
+
+var addFieldTemplate = "<div id='wrapper'>" +
+                             "<h4>Neuen Film speichern</h4>" +
+                             "<input type='text' id='movieTitle' class='input-sm' placeholder='Titel'/>" +
+                             "<button id='storeButton' class='btn btn-primary input-sm'>Speichern</button>" +
+                         "</div>";

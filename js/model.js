@@ -26,7 +26,6 @@ function checkLoginState(){
  * @param formData
  */
 function loginUser(formData){
-    var isRight;
     isRight = Parse.User.logIn(formData.name, formData.pass, {
         success: function(){
             showLoggedInView();
@@ -35,8 +34,6 @@ function loginUser(formData){
             alert("Verdammt");
         }
     });
-
-    return isRight;
 }
 
 /**
