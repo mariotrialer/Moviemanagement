@@ -24,6 +24,7 @@ function checkAuthentificationState(){
  */
 function deleteLoginArea(){
     removeLoginArea();
+    toggleLoginButton();
 }
 
 /**
@@ -44,4 +45,5 @@ function signIn(){
  */
 function logOut(){
     clearCurrentUser();
+    showLoggedOutView();
 }

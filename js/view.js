@@ -36,7 +36,6 @@ function toggleLoginArea(){
  */
 function removeLoginArea(){
     $("#loginArea").slideUp();
-    toggleLoginButton();
     $("#loginFormContainer").remove();
 }
 
@@ -57,4 +56,9 @@ function getLoginData(){
 
 function showLoggedInView(){
     toggleLogoutButton();
+    deleteLoginArea();
+}
+
+function showLoggedOutView(){
+    toggleLoginButton();
 }
