@@ -1,0 +1,32 @@
+#page{
+    margin-top: 60px;
+}
+
+/* Container in the top-bar where the login/logout button will be */
+#buttonContainer{
+    float: right;
+    margin: 9px 10px 0 0;
+}
+
+#loginNavigator{
+    text-align: right;
+    margin-top: 0;
+}
+
+#formContainer{
+    width: 50%;
+}
+
+.nameColumn{
+    width: 39%;
+    float: left;
+}
+
+.fieldColumn{
+    width: 60%;
+    float: right;
+}
+
+#hideImage:hover{
+    border: 1px solid black;
+}

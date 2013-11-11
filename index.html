@@ -14,25 +14,52 @@
     <!-- Underscore import -->
     <script type="text/javascript" src="lib/underscore-min.js"></script>
 
+    <!-- Own style import -->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
     <!-- Parse SDK import -->
+    <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
 
+    <!-- Templates import -->
+    <script type="text/javascript" src="js/templates.js"></script>
 
-    <!-- Template for login -->
-    <script type="text/template">
+    <!-- View import -->
+    <script type="text/javascript" src="js/view.js"></script>
+    <!-- Model import -->
+    <script type="text/javascript" src="js/model.js"></script>
+    <!-- Controller import -->
+    <script type="text/javascript" src="js/controller.js"></script>
 
-    </script>
-
-    <!-- Template for ListItem -->
-    <script type="text/template">
-
-    </script>
-
-    <!-- Template for Dialog -->
-    <script type="text/template">
-
+    <!-- Document Ready -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+           connectParse();
+           checkAuthentificationState();
+        });
     </script>
 </head>
 <body>
+    <!-- Head-Bar with Title and Signin-Button -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <a class="navbar-brand" href="#">Filmeverwaltung</a>
+        <div id="buttonContainer">
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+    <!-- Here will be the Login-Area -->
+    <div id="loginArea">
+
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="page">
+
+        <!-- Here will be the add-option -->
+        <div id="addMovieContainer">
+            <h1>Tinte</h1>
+        </div>
+    </div>
 
 </body>
 </html>
