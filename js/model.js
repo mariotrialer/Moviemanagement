@@ -84,3 +84,5 @@ function saveItemToParse(film){
         }
     });
 }
+
+function getAllItemsFromParse()
