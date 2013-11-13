@@ -64,7 +64,7 @@ function showLoggedInView(){
     toggleToolTitle();
     toggleAddArea();
     toggleToolBar();
-    makeViewable();
+    toggleSawTitle();
 }
 
 /**
@@ -76,7 +76,7 @@ function showLoggedOutView(){
     removeAddArea();
     removeOnClickFromStars();
     removeToolBar();
-    makeUnViewable();
+    removeSawTitle();
 }
 
 /**
@@ -115,6 +115,23 @@ function appendNewMovie(item){
     $("#tableBody").append(output);
 }
 
+/**
+ * This function adds the saw column
+ */
+function toggleSawTitle(){
+    $("#sawHead").html("Gesehen?");
+}
+
+/**
+ * This function removes the saw column
+ */
+function removeSawTitle(){
+    $("#sawHead").html("");
+}
+
+/**
+ * This function adds the Tool Column
+ */
 function toggleToolTitle(){
     $("#toolHead").html("Tools");
 }
@@ -140,7 +157,6 @@ function updateSeenIcon(bool, id){
         var output = _.template(notSeenButtonTemplate, {provider:provider});
         $("#" + id).html(output);
     }
-    makeViewable();
 }
 
 /**
@@ -193,53 +209,6 @@ function removeToolBar(){
  */
 function removeMovieFromView(rowId){
     $("#" + rowId).remove();
-}
-
-/**
- * This function makes the View Button clickable
- */
-function makeViewable(){
-    var ids = [];
-
-    //Iterate over Table and push the rows into array
-    $('#tableBody tr').each(function(){
-        ids.push(this.id);
-    });
-
-    //Pass the onclick to movies
-    for(var i = 0; i < ids.length; i++){
-        var id = ids[i];
-        var idBase = id.replace(/rowId_/g, "");
-        seenId = "seenButton_" + idBase;
-
-        //Get the class
-        var clazz = $("#" + seenId).attr("class");
-        
-        if(clazz == "btn btn-success"){
-            $("#" + seenId).attr("onclick", "updateIsSeen(false, this.id);");
-        }else{
-            $("#" + seenId).attr("onclick", "updateIsSeen(true, this.id);");
-        }
-    }  
-}
-
-function makeUnViewable(){
-    var ids = [];
-
-    //Iterate over Table and push the rows into array
-    $('#tableBody tr').each(function(){
-        ids.push(this.id);
-    });
-
-    //Pass the onclick to movies
-    for(var i = 0; i < ids.length; i++){
-        var id = ids[i];
-        var idBase = id.replace(/rowId_/g, "");
-        seenId = "seenButton_" + idBase;
-
-        //Toggle the onclick
-        $("#" + seenId).attr("onlick", "updateIsSeen(false, this.id);");
-    }  
 }
 
 /**

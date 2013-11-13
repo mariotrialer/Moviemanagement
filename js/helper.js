@@ -74,7 +74,7 @@ function createIsntSeenObject(item){
 
     var viewable = {
         "name": item.name,
-        "isSeenHtml": _.template(notSeenButtonTemplate, {provider: provider}),
+        "isSeenHtml": '',
         "rowId": createId(item.name, 1),
         "titleCell": createId(item.name, 2),
         "seenCell": createId(item.name, 3),
@@ -107,7 +107,7 @@ function createIsSeenObject(item){
 
         var viewable = {
             "name": item.name,
-            "isSeenHtml": _.template(seenButtonTemplate, {provider: provider}),
+            "isSeenHtml": '',
             "rowId": createId(item.name, 1),
             "titleCell": createId(item.name, 2),
             "seenCell": createId(item.name, 3),

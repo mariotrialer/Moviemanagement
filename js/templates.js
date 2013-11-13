@@ -55,7 +55,7 @@ var listRowTemplate = "<tr id='<%= item.rowId %>'>" +
                           "<td id='<%= item.rateCell %>'><%= item.ration %></td>" +
                           "<td class='toolsItem' id='<%= item.toolBar %>'></td>" +
                           "<td><button class='btn btn-default' onclick='showInfoDialog();'>" +
-                             "<span class='glyphicon glyphicon-align-justify'>&nbsp Info</span>" +
+                             "<span class='glyphicon glyphicon-align-justify'></span>" +
                           "</button></td>" +
                       "</tr>";
 
@@ -69,10 +69,23 @@ var toolBarTemplate = "<td class='toolBar'>" +
                           "</button>" +
                       "</td>";
 
-var seenButtonTemplate = "<button class='btn btn-success' id='<%= provider.seenButton %>'><span class='glyphicon glyphicon-eye-open'></span></button>";
 
-var notSeenButtonTemplate = "<button class='btn btn-warning' id='<%= provider.seenButton %>'><span class='glyphicon glyphicon-eye-close'></span></button>";
+/**
+ * Template for the Is Seen Button (Green)
+ * @type {string}
+ */
+var seenButtonTemplate = "<button class='btn btn-success' onclick='updateIsSeen(false, this.id);' id='<%= provider.seenButton %>'><span class='glyphicon glyphicon-eye-open'></span></button>";
 
+/**
+ * Template for the Is Not Seen Button (Orange)
+ * @type {string}
+ */
+var notSeenButtonTemplate = "<button class='btn btn-warning' onclick='updateIsSeen(true, this.id);' id='<%= provider.seenButton %>'><span class='glyphicon glyphicon-eye-close'></span></button>";
+
+/**
+ * Template for the Rate Area
+ * @type {string}
+ */
 var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" + 
                       "<span id='<%= provider.idOne %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                       "<span id='<%= provider.idTwo %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
@@ -81,6 +94,10 @@ var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" +
                       "<span id='<%= provider.idFive %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
                     "</div>";
 
+/**
+ * Template for the tools
+ * @type {string}
+ */
 var toolTemplate = "<button class='btn btn-info' id='<%= item.renameButton %>'>" + 
                       "<span class='glyphicon glyphicon-pencil'></span>" + 
                    "</button>" + 

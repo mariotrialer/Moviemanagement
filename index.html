@@ -61,12 +61,20 @@
         <div id="addMovieContainer">
         </div>
 
+        <!-- Here will be the select for sortion -->
+        <div id="sortionContainer">
+            <select class="form-control input-sm" id="sortSelect">
+                <option value="alphabetically">Alphabetisch</option>
+                <option value="rating">Nach Bewertung</option>
+            </select>
+        </div>
+
         <!-- Here will be the table -->
         <div id="tableContainer">
             <table id="movieList" class="table table-striped">
                 <thead id='tableHead'>
                     <th>Titel</th>
-                    <th>Gesehen</th>
+                    <th id="sawHead"></th>
                     <th>Bewertung</th>
                     <th id="toolHead" class="toolBar"></th>
                     <th>Info</th>

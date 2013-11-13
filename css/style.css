@@ -79,3 +79,9 @@
 .btn-individual{
   border: 1px solid light-gray;
 }
+
+#sortionContainer{
+    width: 100%;
+    text-align: right;
+    margin: 5px 0 5px 0;
+}
