@@ -71,3 +71,11 @@
    content: "\2605";
    position: absolute;
 }
+
+.btn-right{
+  margin-left: 5px;
+}
+
+.btn-individual{
+  border: 1px solid light-gray;
+}

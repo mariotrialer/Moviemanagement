@@ -39,7 +39,6 @@
         $(document).ready(function(){
            connectParse();
            checkAuthentificationState();
-           pushStoredMoviesToList();
         });
     </script>
 </head>
@@ -53,17 +52,10 @@
     </div>
 
     <!-- Here will be the Login-Area -->
-    <div id="loginArea">
-
-    </div>
+    <div id="loginArea"></div>
 
     <!-- Main Container -->
     <div class="container" id="page">
-
-        <!-- Here Will be the Greet Text -->
-        <div id="greeter">
-
-        </div>
 
         <!-- Here will be the add-option -->
         <div id="addMovieContainer">
@@ -83,6 +75,22 @@
 
                 </tbody>
             </table>
+        </div>
+    </div>
+    <!-- Popup-->
+    <div id="myModal" class="modal fade" >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- dialog body -->
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <div id="contentOfDialog">
+
+              </div>
+            </div>
+            <!-- dialog buttons -->
+            <div class="modal-footer"><button id="dialogOk" type="button" onclick="removePopup();" class="btn btn-primary" >OK</button></div>
+          </div>
         </div>
     </div>
 

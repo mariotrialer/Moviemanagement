@@ -13,8 +13,10 @@ function checkAuthentificationState(){
     var isAuthorized = checkLoginState();
     //React
     if(isAuthorized){
+        pushStoredMoviesToList(true);
         showLoggedInView();
     }else{
+        pushStoredMoviesToList();
         showLoggedOutView();
     }
 }
@@ -71,13 +73,16 @@ function createNewItem(){
 
     //Append the Item
     appendNewMovie(viewable);
+
+    //Toggle Toolbar to new Item
+    toggleToolBar();
 }
 
 /**
  * This function calls the functions to append the stored movies to the list
  */
-function pushStoredMoviesToList(){
-    getAllItemsFromParse();
+function pushStoredMoviesToList(bool){
+    getAllItemsFromParse(bool);
 }
 
 /**
@@ -100,4 +105,22 @@ function updateIsSeen(bool, id){
 
 function rateMovie(id, object){
     
+}
+
+/**
+ * Calls the Functions for deleting the Movie
+ */
+function deleteMovie(toolBar){
+    var toolBarId = toolBar.attr("id");
+    var idBase = toolBarId.replace(/toolBar_/g, "");
+    var trId = createId(idBase, 1);
+    var tcId = createId(idBase, 2);
+
+    removeMovieFromParse(tcId);
+    removeMovieFromView(trId);
+}
+
+function showInfoDialog(){
+    $("#dialogOk").attr("onclick", "closeDialog();");
+    $("#myModal").modal('show');
 }

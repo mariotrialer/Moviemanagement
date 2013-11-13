@@ -63,6 +63,8 @@ function showLoggedInView(){
     toggleLogoutButton();
     toggleToolTitle();
     toggleAddArea();
+    toggleToolBar();
+    makeViewable();
 }
 
 /**
@@ -73,6 +75,8 @@ function showLoggedOutView(){
     removeToolTitle();
     removeAddArea();
     removeOnClickFromStars();
+    removeToolBar();
+    makeUnViewable();
 }
 
 /**
@@ -122,10 +126,6 @@ function removeToolTitle(){
     $("#toolHead").html("");
 }
 
-function toggleToolsToItem(id){
-
-}
-
 /*
  * This function retemplates the Seen Button
  */
@@ -140,6 +140,7 @@ function updateSeenIcon(bool, id){
         var output = _.template(notSeenButtonTemplate, {provider:provider});
         $("#" + id).html(output);
     }
+    makeViewable();
 }
 
 /**
@@ -151,4 +152,123 @@ function removeOnClickFromStars(){
 
 function toggleRating(){
 
+}
+
+/**
+ * This function templates the tools to each item
+ */
+function toggleToolBar(){
+    var ids = [];
+
+    //Iterate over Table and push the rows into array
+    $('#tableBody tr').each(function(){
+        ids.push(this.id);
+    });
+
+    for(var i = 0; i < ids.length; i++){
+        var idBase = ids[i].replace(/rowId_/g, "");
+        var toolId = "toolBar_" + idBase;
+        var renameButton = createId(idBase, 5);
+        var removeButton = createId(idBase, 5);
+
+        var item = {
+            "renameButton":renameButton,
+            "removeButton":removeButton
+        }
+        
+        var output = _.template(toolTemplate, {item:item});
+        $("#" + toolId).html(output);
+    }
+}
+
+/**
+ * This function removes the tools from each item
+ */
+function removeToolBar(){
+    $(".toolsItem").html('');
+}
+
+/**
+ * This function removes the Movie from the View
+ */
+function removeMovieFromView(rowId){
+    $("#" + rowId).remove();
+}
+
+/**
+ * This function makes the View Button clickable
+ */
+function makeViewable(){
+    var ids = [];
+
+    //Iterate over Table and push the rows into array
+    $('#tableBody tr').each(function(){
+        ids.push(this.id);
+    });
+
+    //Pass the onclick to movies
+    for(var i = 0; i < ids.length; i++){
+        var id = ids[i];
+        var idBase = id.replace(/rowId_/g, "");
+        seenId = "seenButton_" + idBase;
+
+        //Get the class
+        var clazz = $("#" + seenId).attr("class");
+        
+        if(clazz == "btn btn-success"){
+            $("#" + seenId).attr("onclick", "updateIsSeen(false, this.id);");
+        }else{
+            $("#" + seenId).attr("onclick", "updateIsSeen(true, this.id);");
+        }
+    }  
+}
+
+function makeUnViewable(){
+    var ids = [];
+
+    //Iterate over Table and push the rows into array
+    $('#tableBody tr').each(function(){
+        ids.push(this.id);
+    });
+
+    //Pass the onclick to movies
+    for(var i = 0; i < ids.length; i++){
+        var id = ids[i];
+        var idBase = id.replace(/rowId_/g, "");
+        seenId = "seenButton_" + idBase;
+
+        //Toggle the onclick
+        $("#" + seenId).attr("onlick", "updateIsSeen(false, this.id);");
+    }  
+}
+
+/**
+ * Functions for the dialog
+ */
+$("#myModal").on("show", function() {    // wire up the OK button to dismiss the modal when shown
+    $("#myModal a.btn").on("click", function(e) {
+        console.log("button pressed");   // just as an example...
+        $("#myModal").modal('hide');     // dismiss the dialog
+    });
+});
+
+$("#myModal").on("hide", function() {    // remove the event listeners when the dialog is dismissed
+    $("#myModal a.btn").off("click");
+});
+
+$("#myModal").on("hidden", function() {  // remove the actual elements from the DOM when fully hidden
+    $("#myModal").remove();
+});
+
+$("#myModal").modal({                    // wire up the actual modal functionality and show the dialog
+  "backdrop"  : "static",
+  "keyboard"  : true,
+  "show"      : false                     // ensure the modal is shown immediately
+});
+
+/**
+ * This function closes the Dialog
+ */
+function closeDialog(){
+    $("#myModal").modal('hide');
 }

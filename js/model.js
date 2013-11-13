@@ -85,7 +85,7 @@ function saveItemToParse(film){
     });
 }
 
-function getAllItemsFromParse(){
+function getAllItemsFromParse(bool){
     
     var Movie = Parse.Object.extend("Movie");
     var query = new Parse.Query(Movie);
@@ -111,6 +111,10 @@ function getAllItemsFromParse(){
                 }
 
                 appendNewMovie(viewable);
+
+                if(bool){
+                    toggleToolBar();
+                }
 
             }
         },
@@ -138,4 +142,34 @@ function updateIsSeenOnParse(name, bool){
             alert("Objekt wurde nicht gefunden");
         }
     });
+}
+
+/**
+ * This function removes the given Movie from parse
+ */
+function removeMovieFromParse(tcId){
+    var title = $("#" + tcId).html();
+    
+    var Movie = Parse.Object.extend("Movie");
+    var query = new Parse.Query(Movie);
+    query.equalTo("title", title);
+    query.first({
+        success: function(object){
+            object.destroy({
+                success: function(){
+                    
+                },
+                error: function(){
+
+                }
+            });
+        }
+    });
+}
+
+/**
+ * This function searches for the given Title in OMDB
+ */
+function passFirstRequestToOmdb(movieTitle){
+
 }
