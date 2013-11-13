@@ -68,3 +68,15 @@ var toolBarTemplate = "<td class='toolBar'>" +
                              "<span class='glyphicon glyphicon-edit'></span>" +
                           "</button>" +
                       "</td>";
+
+var seenButtonTemplate = "<button id='<%= provider.seenButton %>' onclick='updateIsSeen(false, this.id);'><span class='glyphicon glyphicon-eye-open'></span></button>";
+
+var notSeenButtonTemplate = "<button id='<%= provider.seenButton %>' onclick='updateIsSeen(true, this.id);'><span class='glyphicon glyphicon-eye-close'></span></button>";
+
+var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" + 
+                      "<span id='<%= provider.idOne %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
+                      "<span id='<%= provider.idTwo %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
+                      "<span id='<%= provider.idThree %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
+                      "<span id='<%= provider.idFour %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
+                      "<span id='<%= provider.idFive %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
+                    "</div>";

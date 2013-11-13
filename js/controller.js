@@ -15,7 +15,7 @@ function checkAuthentificationState(){
     if(isAuthorized){
         showLoggedInView();
     }else{
-        toggleLoginButton();
+        showLoggedOutView();
     }
 }
 
@@ -52,7 +52,7 @@ function createNewItem(){
     var item = {
       "name": title,
       "isSeen": false,
-      "ration": null
+      "ration": 0
     };
 
     var viewable;
@@ -71,4 +71,33 @@ function createNewItem(){
 
     //Append the Item
     appendNewMovie(viewable);
+}
+
+/**
+ * This function calls the functions to append the stored movies to the list
+ */
+function pushStoredMoviesToList(){
+    getAllItemsFromParse();
+}
+
+/**
+ * This function updates the isSeen-Cell on parse to the given boolean
+ */
+function updateIsSeen(bool, id){
+    var idBase = id.replace(/seenButton_/g, "");
+    var cellId = "seenCell_" + idBase;
+    var titleId = "titleCell_" + idBase;
+    if(bool){
+        //If movie was seen
+        updateSeenIcon(true, cellId);
+        updateIsSeenOnParse($("#" + titleId).html(), true);
+    }else{
+        //If movie wasnt seen
+        updateSeenIcon(false, cellId);
+        updateIsSeenOnParse($("#" + titleId).html(), false);
+    }
+}
+
+function rateMovie(id, object){
+    
 }

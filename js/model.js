@@ -71,7 +71,7 @@ function saveItemToParse(film){
     var Movie = Parse.Object.extend("Movie");
     var movie = new Movie();
 
-    movie.set("title", film.title);
+    movie.set("title", film.name);
     movie.set("isSeen", film.isSeen);
     movie.set("ration", film.ration);
 
@@ -85,4 +85,57 @@ function saveItemToParse(film){
     });
 }
 
-function getAllItemsFromParse()
+function getAllItemsFromParse(){
+    
+    var Movie = Parse.Object.extend("Movie");
+    var query = new Parse.Query(Movie);
+    query.find({
+        success: function(results){
+            for(var i = 0; i < results.length; i++){
+                var object = results[i];
+
+                var viewable;
+
+                //Build the JSON object
+                var provider = {
+                    "name":object.get('title'),
+                    "isSeen":object.get('isSeen'),
+                    "ration":object.get('ration')
+                }
+
+                //Check if Movie was seen
+                if(provider.isSeen){
+                    viewable = createIsSeenObject(provider);
+                }else{
+                    viewable = createIsntSeenObject(provider);    
+                }
+
+                appendNewMovie(viewable);
+
+            }
+        },
+        error: function(){
+            alert("Fehler beim holen der Filme");
+        }
+    });
+}
+
+/**
+ * This function updates the isSeen field to the bool Param value
+ */
+function updateIsSeenOnParse(name, bool){
+
+    var Movie = Parse.Object.extend("Movie");
+
+    var query = new Parse.Query(Movie);
+    query.equalTo("title", name);
+    query.first({
+        success: function(object){
+            object.set("isSeen", bool)
+            object.save();
+        },
+        error: function(){
+            alert("Objekt wurde nicht gefunden");
+        }
+    });
+}

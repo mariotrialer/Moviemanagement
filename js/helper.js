@@ -40,6 +40,15 @@ function createId(name, type){
         case 7:
             generatedId = "toolBar_" + title;
             break;
+        case 8:
+            generatedId = "seenButton_" + title;
+            break;
+        case 9:
+            generatedId = "starId_" + title;
+            break;
+        case 10:
+            generatedId = title;
+            break;
         default:
             alert("Wrong input");
     }
@@ -49,12 +58,23 @@ function createId(name, type){
 
 /**
  * This function builds a new Row Object when the Movie
- * was seen
+ * was not seen
  */
 function createIsntSeenObject(item){
+    var provider = {
+        "name":item.name,
+        "seenButton":createId(item.name, 8),
+        "starId":createId(item.name, 9), 
+        "idOne":createId(item.name, 10) + "1",
+        "idTwo":createId(item.name, 10) + "2",
+        "idThree":createId(item.name, 10) + "3",
+        "idFour":createId(item.name, 10) + "4",
+        "idFive":createId(item.name, 10) + "5"
+    };
+
     var viewable = {
         "name": item.name,
-        "isSeenHtml": "<span class='glyphicon glyphicon-eye-close'>&nbsp Nein</span>",
+        "isSeenHtml": _.template(notSeenButtonTemplate, {provider: provider}),
         "rowId": createId(item.name, 1),
         "titleCell": createId(item.name, 2),
         "seenCell": createId(item.name, 3),
@@ -62,8 +82,41 @@ function createIsntSeenObject(item){
         "renameButton": createId(item.name, 5),
         "removeButton": createId(item.name, 6),
         "toolBar": createId(item.name, 7),
-        "ration": "Noch keine Bewertung"
+        "ration": _.template(rateTemplate, {provider:provider})
     };
 
     return viewable;
+}
+
+/**
+ * This function builds a new Row Object when the Movie
+ * was seen
+ */
+function createIsSeenObject(item){
+        var newName = "'" + item.name + "'";
+        var provider = {
+            "name":item.name,
+            "seenButton":createId(item.name, 8),
+            "starId":createId(item.name, 9), 
+            "idOne":createId(item.name, 10) + "1",
+            "idTwo":createId(item.name, 10) + "2",
+            "idThree":createId(item.name, 10) + "3",
+            "idFour":createId(item.name, 10) + "4",
+            "idFive":createId(item.name, 10) + "5"
+        };
+
+        var viewable = {
+            "name": item.name,
+            "isSeenHtml": _.template(seenButtonTemplate, {provider: provider}),
+            "rowId": createId(item.name, 1),
+            "titleCell": createId(item.name, 2),
+            "seenCell": createId(item.name, 3),
+            "rateCell": createId(item.name, 4),
+            "renameButton": createId(item.name, 5),
+            "removeButton": createId(item.name, 6),
+            "toolBar": createId(item.name, 7),
+            "ration": _.template(rateTemplate, {provider:provider})
+        };
+
+    return viewable;  
 }

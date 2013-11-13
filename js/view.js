@@ -72,6 +72,7 @@ function showLoggedOutView(){
     toggleLoginButton();
     removeToolTitle();
     removeAddArea();
+    removeOnClickFromStars();
 }
 
 /**
@@ -122,5 +123,32 @@ function removeToolTitle(){
 }
 
 function toggleToolsToItem(id){
+
+}
+
+/*
+ * This function retemplates the Seen Button
+ */
+function updateSeenIcon(bool, id){
+    var idBase = id.replace(/seenCell_/g, "");
+    var buttonId = "seenButton_" + idBase;
+    var provider = {"seenButton":buttonId};
+    if(bool){
+        var output = _.template(seenButtonTemplate, {provider:provider});
+        $("#" + id).html(output);
+    }else{
+        var output = _.template(notSeenButtonTemplate, {provider:provider});
+        $("#" + id).html(output);
+    }
+}
+
+/**
+ * This function removes the Listener from the stars
+ */
+function removeOnClickFromStars(){
+    $(".star").attr("onclick", "");
+}
+
+function toggleRating(){
 
 }
