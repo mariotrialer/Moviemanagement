@@ -120,7 +120,42 @@ function deleteMovie(toolBar){
     removeMovieFromView(trId);
 }
 
-function showInfoDialog(){
-    $("#dialogOk").attr("onclick", "closeDialog();");
-    $("#myModal").modal('show');
+/**
+ * This function calls the model and the view
+ */ 
+function showInfoDialog(movieTitle){
+    passFirstRequestToOmdb(movieTitle);
+}
+
+/**
+ * This function calls the Rename Dialog
+ */
+function renameMovie(id){
+    showTheRenameDialog(id);
+}
+
+/**
+ * This function reacts to the rename dialogs action
+ */
+function updateName(id){
+    closeDialog();
+    var oldBase = id.replace(/renameButton_/g, "");
+    var newBase = $("#newTitle").val();
+    
+    //Change the id of the title cell
+    var oldRow = createId(oldBase, 1); 
+    var newRow = createId(newBase, 1);
+    $("#" + oldRow).attr("id", newRow);
+
+    //Change the id of the title cell
+    var oldTitle = createId(oldBase, 2);
+    var newTitle = createId(newBase, 2);
+    $("#" + oldTitle).attr("id", newTitle);
+
+    //Change the seen cell
+    var oldSeen = createId(oldBase, 3);
+    var newSeen = createId(newBase, 3);
+    $("#" + oldSeen).attr("id", newSeen);
+
+
 }

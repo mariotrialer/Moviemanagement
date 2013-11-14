@@ -85,3 +85,14 @@
     text-align: right;
     margin: 5px 0 5px 0;
 }
+
+.cover{
+    width: 60px;
+    float: left;
+}
+
+.info{
+    text-align: left;
+    float: right;
+    width: 40%;
+}

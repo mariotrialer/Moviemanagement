@@ -241,3 +241,58 @@ $("#myModal").modal({                    // wire up the actual modal functionali
 function closeDialog(){
     $("#myModal").modal('hide');
 }
+
+/**
+ * This function shows the Dialog with a dropdown
+ */
+function showVariousOptionsDialog(object){
+    var contentOfDialog = $("#contentOfDialog").html("");
+    var headline = "<h3>Es gibt mehrere Treffer zu ihrer Anfrage</h3>";
+    var head2 = "<h4>Bitte treffen sie ihre Auswahl</h4>";
+    $("#contentOfDialog").append(headline);
+    $("#contentOfDialog").append(head2);
+
+    var selectBox = "<select id='moviesList' class='form-control'>";
+
+    $.each(object, function(i,obj){
+        selectBox = selectBox + "<option value=" + obj.imdbID + ">" + obj.Title + ", " + obj.Year + "</option>";
+    });
+    selectBox = selectBox + "</select>";
+
+    $("#contentOfDialog").append(selectBox);
+    $("#dialogOk").attr("onclick", "getInfoOfSpecialMovie();");
+    openDialog();
+}
+
+/**
+ * This function shows the info dialog
+ */
+function showTheInfoDialog(info){
+    var output = _.template(infoTemplate, {info:info});
+    $("#dialogOk").attr("onclick", "closeDialog();");
+    $("#contentOfDialog").html(output);   
+}
+
+/**
+ * This function shows the dialog for renaming
+ */
+function showTheRenameDialog(id){
+    var output = _.template(renameTemplate, {});
+    $("#contentOfDialog").html(output);
+    $("#dialogOk").attr("onclick", "updateName('" + id +"');");
+    openDialog();
+}
+
+/**
+ * Opens the Modal dialog
+ */
+function openDialog(){
+    $("#myModal").modal('show');
+}
+
+/**
+ * Closes the Modal Dialog
+ */
+function closeDialog(){
+    $("#myModal").modal('hide');
+}

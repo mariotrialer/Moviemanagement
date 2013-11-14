@@ -54,7 +54,7 @@ var listRowTemplate = "<tr id='<%= item.rowId %>'>" +
                           "<td id='<%= item.seenCell %>'><%= item.isSeenHtml %></td>" +
                           "<td id='<%= item.rateCell %>'><%= item.ration %></td>" +
                           "<td class='toolsItem' id='<%= item.toolBar %>'></td>" +
-                          "<td><button class='btn btn-default' onclick='showInfoDialog();'>" +
+                          "<td><button id='<%= item.infoButton %>' class='btn btn-default' onclick='showInfoDialog(this.id);'>" +
                              "<span class='glyphicon glyphicon-align-justify'></span>" +
                           "</button></td>" +
                       "</tr>";
@@ -98,9 +98,30 @@ var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" +
  * Template for the tools
  * @type {string}
  */
-var toolTemplate = "<button class='btn btn-info' id='<%= item.renameButton %>'>" + 
+var toolTemplate = "<button class='btn btn-info' id='<%= item.renameButton %>' onclick='renameMovie(this.id);'>" + 
                       "<span class='glyphicon glyphicon-pencil'></span>" + 
                    "</button>" + 
                    "<button class='btn btn-info btn-right' id='<%= item.removeButton %>' onclick='deleteMovie($(this).parent())'>" + 
                       "<span class='glyphicon glyphicon-trash'></span>" + 
                    "</button>";
+
+/**
+ * Template for the Info Dialog
+ */
+var infoTemplate = "<div class='infoContainer'>" + 
+                      "<h3><%= info.title %></h3>" +
+                      "<div class='cover'>" +
+                          "<img class='img-rounded' src='<%= info.cover %>' alt='Cover of: <%= info.title %>'/>" + 
+                      "</div>" +
+                      "<div class='info'>" +
+                        "<p><b>Bewertung: </b><%= info.rating %></p>" +
+                        "<p><b>Erscheinungsjahr: </b><%= info.year %></p>" +
+                        "<p><b>Regisseur: </b><%= info.regie %></p>" +
+                        "<p><b>Laufzeit: </b><%= info.runtime %> </p>" +
+                        "<p><b>Genre: </b><%= info.genre %></p>" +
+                      "</div>" +
+                   "<div style='clear: both'></div>" +
+                   "</div>";
+
+var renameTemplate = "<h3>Name ändern</h3>" +
+                     "<input id='newTitle' type='text' class='form-control' placeholder='Neuer Titel' />";

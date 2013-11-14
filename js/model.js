@@ -171,5 +171,49 @@ function removeMovieFromParse(tcId){
  * This function searches for the given Title in OMDB
  */
 function passFirstRequestToOmdb(movieTitle){
+    var idBase = movieTitle.replace(/infoButton_/g, "");
+    var titleCell = "titleCell_" + idBase;
+    var name = $("#" +titleCell).html();
+    $.ajax({
+        url: 'http://www.omdbapi.com/?s=' + name,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function(data){
+             var movies = data.Search;
+             showVariousOptionsDialog(movies);
+        },
+        error: function(){
+            alert("Fehltritt");
+        }
+    });
+}
 
+/**
+ * This function takes the info of a film with a special id
+ */
+function getInfoOfSpecialMovie(){
+    var value = $("#moviesList").val();
+    $.ajax({
+        url: "http://www.omdbapi.com/?i=" + value,
+        type: "Get",
+        dataType: "JSON",
+        success: function(data){
+            //Build the Json with the required information
+            var info = {
+                "title":data.Title,
+                "cover":data.Poster,
+                "rating":data.imdbRating,
+                "year":data.Year,
+                "regie":data.Director,
+                "runtime":data.Runtime,
+                "genre":data.Genre
+            };
+
+            showTheInfoDialog(info);
+
+        },
+        error: function(){
+            alert("Fuck");
+        }
+    });
 }

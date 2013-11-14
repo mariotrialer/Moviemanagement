@@ -49,6 +49,9 @@ function createId(name, type){
         case 10:
             generatedId = title;
             break;
+        case 11:
+            generatedId = "infoButton_" + title;
+            break;
         default:
             alert("Wrong input");
     }
@@ -82,7 +85,8 @@ function createIsntSeenObject(item){
         "renameButton": createId(item.name, 5),
         "removeButton": createId(item.name, 6),
         "toolBar": createId(item.name, 7),
-        "ration": _.template(rateTemplate, {provider:provider})
+        "ration": _.template(rateTemplate, {provider:provider}),
+        "infoButton":createId(item.name, 11)
     };
 
     return viewable;
@@ -115,7 +119,8 @@ function createIsSeenObject(item){
             "renameButton": createId(item.name, 5),
             "removeButton": createId(item.name, 6),
             "toolBar": createId(item.name, 7),
-            "ration": _.template(rateTemplate, {provider:provider})
+            "ration": _.template(rateTemplate, {provider:provider}),
+            "infoButton":createId(item.name, 11)
         };
 
     return viewable;  

@@ -61,14 +61,6 @@
         <div id="addMovieContainer">
         </div>
 
-        <!-- Here will be the select for sortion -->
-        <div id="sortionContainer">
-            <select class="form-control input-sm" id="sortSelect">
-                <option value="alphabetically">Alphabetisch</option>
-                <option value="rating">Nach Bewertung</option>
-            </select>
-        </div>
-
         <!-- Here will be the table -->
         <div id="tableContainer">
             <table id="movieList" class="table table-striped">
@@ -84,6 +76,14 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Here will be the select for sortion -->
+        <div id="sortionContainer">
+            <select class="form-control input-sm" id="sortSelect">
+                <option value="alphabetically">Alphabetisch</option>
+                <option value="rating">Nach Bewertung</option>
+            </select>
+        </div>
     </div>
     <!-- Popup-->
     <div id="myModal" class="modal fade" >
@@ -97,7 +97,7 @@
               </div>
             </div>
             <!-- dialog buttons -->
-            <div class="modal-footer"><button id="dialogOk" type="button" onclick="removePopup();" class="btn btn-primary" >OK</button></div>
+            <div class="modal-footer"><button id="dialogOk" type="button" onclick="closeDialog();" class="btn btn-primary" >OK</button></div>
           </div>
         </div>
     </div>
