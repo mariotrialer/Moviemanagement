@@ -141,6 +141,17 @@ function updateName(id){
     closeDialog();
     var oldBase = id.replace(/renameButton_/g, "");
     var newBase = $("#newTitle").val();
+    newBase = newBase.replace(/,/g, "");
+    newBase = newBase.replace(/-/g, "");
+    newBase = newBase.replace(/ /g, "");
+
+    //Get the old Name from the view
+    var oldName = $("#" + createId(oldBase, 2)).html();
+    var newName = $("#newTitle").val();
+
+    //Change the name in the view
+    var newTitleCellId = createId(newBase, 2);
+    $("#" + newTitleCellId).html($("#newTitle").val());
     
     //Change the id of the title cell
     var oldRow = createId(oldBase, 1); 
@@ -157,5 +168,47 @@ function updateName(id){
     var newSeen = createId(newBase, 3);
     $("#" + oldSeen).attr("id", newSeen);
 
+    //Change the id fo the rate cell 
+    var oldRate = createId(oldBase, 4);
+    var newRate = createId(newBase, 4);
+    $("#" + oldRate).attr("id", newRate);
 
+    //Change the id of the starWrap
+    var oldStar = createId(oldBase, 9);
+    var newStar = createId(newBase, 9);
+    $("#" + oldStar).attr("id", newStar);
+
+    //Change the id of the stars themeslves
+    for(var i = 1; i <= 5; i++){
+        var oldId = oldBase + i;
+        var newId = newBase + i;
+        $("#" + oldId).attr("id", newId);
+    }
+    
+    //Change the id of the toolbar
+    var oldTools = createId(oldBase, 7);
+    var newTools = createId(newBase, 7);
+    $("#" + oldTools).attr("id", newTools);
+
+    //Change the id of the rename button
+    var oldRenButt = createId(oldBase, 5);
+    var newRenButt = createId(newBase, 5);
+    $("#" + oldRenButt).attr("id", newRenButt);
+
+    //Change the id of the remove Button
+    var oldRemButt = createId(oldBase, 6);
+    var newRemButt = createId(newBase, 6);
+    $("#" +oldRemButt).attr("id", newRemButt);
+
+    //Change the id of the info Button
+    var oldInfoButt = createId(oldBase, 11);
+    var newInfoButt = createId(newBase, 11);
+    $("#" + oldInfoButt).attr("id", newInfoButt);
+
+    //Rename the Movie on Parse
+    renameMovieOnParse(oldName, newName);
+
+    //Change the name in the view
+    var newTitleCellId = createId(newBase, 2);
+    $("#" + newTitleCellId).html($("#newTitle").val());
 }

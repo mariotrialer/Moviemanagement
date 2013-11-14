@@ -48,9 +48,9 @@ function clearCurrentUser(){
  */
 function createNewUser(){
     var user = new Parse.User();
-    user.set("username", "mariotrialer");
+    user.set("username", "fischeni");
     user.set("password", "password");
-    user.set("email", "mariotrialer@gmail.com");
+    user.set("email", "fischeni@dhbw-loerrach.de");
 
     user.signUp(null, {
         success: function(user) {
@@ -216,4 +216,25 @@ function getInfoOfSpecialMovie(){
             alert("Fuck");
         }
     });
+}
+
+/**
+ * This function renames the Movie on Parse
+ */
+function renameMovieOnParse(oldName, newName){
+
+    var Movie = Parse.Object.extend("Movie");
+
+    var query = new Parse.Query(Movie);
+    query.equalTo("title", oldName); 
+    query.first({
+        success: function(object){
+            object.set("title", newName)
+            object.save();
+        },
+        error: function(){
+            alert("Objekt wurde nicht gefunden");
+        }
+    });
+
 }
