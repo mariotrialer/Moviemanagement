@@ -72,6 +72,7 @@ function saveItemToParse(film){
     var movie = new Movie();
 
     movie.set("title", film.name);
+    movie.set("user", film.user);
     movie.set("isSeen", film.isSeen);
     movie.set("ration", film.ration);
 
@@ -179,8 +180,13 @@ function passFirstRequestToOmdb(movieTitle){
         type: 'GET',
         dataType: 'JSON',
         success: function(data){
-             var movies = data.Search;
-             showVariousOptionsDialog(movies);
+            if(data.Search != null){
+                var movies = data.Search;
+                showVariousOptionsDialog(movies);
+            }else{
+                showNotFoundDialog();
+            }
+
         },
         error: function(){
             alert("Fehltritt");
@@ -237,4 +243,42 @@ function renameMovieOnParse(oldName, newName){
         }
     });
 
+}
+
+function getItemsForSort(array){
+
+    $("#tableBody").html("");
+
+    for(var i = 0; i < array.length; i++){
+        var id = array[i];
+
+        var Movie = Parse.Object.extend("Movie");
+
+        var query = new Parse.Query(Movie);
+        query.equalTo("title", id);
+        query.first({
+            success: function(object){
+                var viewable;
+                //alert(JSON.stringify(object));
+                //Build the JSON object
+                var provider = {
+                    "name":object.get('title'),
+                    "isSeen":object.get('isSeen'),
+                    "ration":object.get('ration')
+                }
+
+                //Check if Movie was seen
+                if(provider.isSeen){
+                    viewable = createIsSeenObject(provider);
+                }else{
+                    viewable = createIsntSeenObject(provider);    
+                }
+
+                appendNewMovie(viewable);
+            },
+            error: function(){
+                alert("Objekt wurde nicht gefunden");
+            }
+        }); 
+    }
 }

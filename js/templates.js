@@ -43,6 +43,7 @@ var addFieldTemplate = "<div id='wrapper'>" +
                              "<h4>Neuen Film speichern</h4>" +
                              "<input type='text' id='movieTitle' class='input-sm' placeholder='Titel'/>" +
                              "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm'>Speichern</button>" +
+                             "<div id='errorContainer'></div>" +
                          "</div>";
 
 /**

@@ -96,3 +96,12 @@
     float: right;
     width: 40%;
 }
+
+.error{
+  font-style: italic;
+  margin: 10px 0 5px 0;
+}
+
+.isFalse{
+  border: 2px solid red;
+}

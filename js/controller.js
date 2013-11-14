@@ -50,32 +50,46 @@ function logOut(){
 function createNewItem(){
     var title = getNewMovieTitle();
 
-    //Generate the new Object
-    var item = {
-      "name": title,
-      "isSeen": false,
-      "ration": 0
-    };
-
     var viewable;
 
-    //React if Movie was seen
-    if(item.isSeen){
-        //Generate Code
+    //Check if field is filled
+    if(checkEmptynessOfInputfield()){
 
+        //Remove Error
+        $("#errorContainer").html("");
+        destroyErrorField();
+
+        //Detect the User
+        var user = Parse.User.current();
+
+        var item = {
+            "name":title,
+            "user":user,
+            "isSeen": false,
+            "ration": 0
+        };
+
+        if(item.isSeen){
+
+        }else{
+            viewable = createIsntSeenObject(item);
+        }
+
+        //Save item to Parse
+        saveItemToParse(item);
+
+        //Append the Item
+        appendNewMovie(viewable);
+
+        //Toggle Toolbar to new Item
+        toggleToolBar();
+
+        //Clear the Field
+        clearInputField();
     }else{
-        //Generate Code
-        viewable = createIsntSeenObject(item);
+        $("#errorContainer").html("<span class='error'>Feld darf nicht leer sein</span>");
+        makeErrorField();
     }
-
-    //Save item to Parse
-    saveItemToParse(item);
-
-    //Append the Item
-    appendNewMovie(viewable);
-
-    //Toggle Toolbar to new Item
-    toggleToolBar();
 }
 
 /**
@@ -111,13 +125,20 @@ function rateMovie(id, object){
  * Calls the Functions for deleting the Movie
  */
 function deleteMovie(toolBar){
-    var toolBarId = toolBar.attr("id");
-    var idBase = toolBarId.replace(/toolBar_/g, "");
-    var trId = createId(idBase, 1);
-    var tcId = createId(idBase, 2);
 
-    removeMovieFromParse(tcId);
-    removeMovieFromView(trId);
+    var isWanted = confirm("Wollen sie den ausgewählten Film wirklich entfernen?");
+
+    if(isWanted){
+        var toolBarId = toolBar.attr("id");
+        var idBase = toolBarId.replace(/toolBar_/g, "");
+        var trId = createId(idBase, 1);
+        var tcId = createId(idBase, 2);
+
+        removeMovieFromParse(tcId);
+        removeMovieFromView(trId);
+    }else{
+
+    }
 }
 
 /**
@@ -211,4 +232,8 @@ function updateName(id){
     //Change the name in the view
     var newTitleCellId = createId(newBase, 2);
     $("#" + newTitleCellId).html($("#newTitle").val());
+}
+
+function sortTable(){
+    sortAlphabetically();
 }

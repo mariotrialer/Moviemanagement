@@ -284,6 +284,17 @@ function showTheRenameDialog(id){
 }
 
 /**
+ * This function shows the not found dialog
+ */
+function showNotFoundDialog(){
+    var output = "<h3>Fehler</h3><h4>Zum angegebenen Titel konnten keine Informationen abgerufen werden :(</h4>";
+    output = output + "<p>Bitte überprüfen sie ihre Eingabe</p>";
+    $("#contentOfDialog").html(output);
+    $("#dialogOk").attr("onclick", "closeDialog();");
+    openDialog();
+}
+
+/**
  * Opens the Modal dialog
  */
 function openDialog(){
@@ -296,3 +307,72 @@ function openDialog(){
 function closeDialog(){
     $("#myModal").modal('hide');
 }
+
+function sortAlphabetically(){
+    
+    var ids = new Array();
+
+    //Itearte through table
+    $('#tableBody tr').each(function(){
+        ids.push(this.id);
+    });  
+
+    var titles = Array();
+
+    //Get the titles and store them in Array
+    for(var i = 0; i < ids.length; i++){
+        var id = ids[i];
+        var titleId = "titleCell_" + id.replace(/rowId_/g, "");
+        var title = $("#" + titleId).html();
+        titles.push(title);
+    }
+    var names = titles.sort();
+
+    getItemsForSort(names);
+}
+
+/**
+ * This function checks if the field for a new Movie Title
+ * is filled
+ */
+function checkEmptynessOfInputfield(){
+    var title = $("#movieTitle").val();
+    var isFilled;
+    if(title == ""){
+        isFilled = false;
+    }else{
+        isFilled = true;
+    }
+
+    return isFilled;
+}
+
+/**
+ * This function makes the input field red
+ */
+function makeErrorField(){
+    $("#movieTitle").toggleClass('isFalse');
+}
+
+/**
+ * This function removes the red border
+ */
+function destroyErrorField(){
+    if($("#movieTitle").hasClass("isFalse")){
+        $("#movieTitle").removeClass("isFalse");
+    }else{
+
+    }
+}
+
+/**
+ * This function clears the input field for new movies
+ */
+function clearInputField(){
+    $("#movieTitle").val("");
+}
+
+function toggleIsSeenButton(id){
+
+}
+

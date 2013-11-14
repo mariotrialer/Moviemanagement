@@ -77,12 +77,9 @@
             </table>
         </div>
 
-        <!-- Here will be the select for sortion -->
-        <div id="sortionContainer">
-            <select class="form-control input-sm" id="sortSelect">
-                <option value="alphabetically">Alphabetisch</option>
-                <option value="rating">Nach Bewertung</option>
-            </select>
+        <!-- Sort Button -->
+        <div>
+            <button onclick="sortTable();" class='btn btn-std btn-default'>Sortieren</button>
         </div>
     </div>
     <!-- Popup-->
@@ -97,7 +94,7 @@
               </div>
             </div>
             <!-- dialog buttons -->
-            <div class="modal-footer"><button id="dialogOk" type="button" onclick="closeDialog();" class="btn btn-primary" >OK</button></div>
+            <div class="modal-footer" id='modal-footer'><button id="dialogOk" type="button" onclick="closeDialog();" class="btn btn-primary" >OK</button></div>
           </div>
         </div>
     </div>
