@@ -2,6 +2,10 @@
     margin-top: 60px;
 }
 
+#ajaxContainer{
+    float: right;
+}
+
 /* Container in the top-bar where the login/logout button will be */
 #buttonContainer{
     float: right;
@@ -46,10 +50,11 @@
 #wrapper{
     width: 100%;
     padding: 5px;
-    background: #E8E8E8;
+    background: #F0F0F0;
+    box-shadow: 2px 2px 2px #D6D6D6;
     border-radius: 5px;
     padding-bottom: 8px;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
 }
 
 #storeButton{
@@ -70,6 +75,15 @@
 .rating > span:hover ~ span:before {
    content: "\2605";
    position: absolute;
+}
+
+.aktiv{
+    content: "\2605";
+    position: absolute;
+}
+.rating > span.active{
+    content: "\2605";
+    position: absolute;
 }
 
 .btn-right{
@@ -105,3 +119,18 @@
 .isFalse{
   border: 2px solid red;
 }
+
+#movieTitle{
+    width: 80%;
+    float: left;
+}
+
+#storeButton{
+    width: 18%;
+    float: right;
+}
+
+#ajaxloader{
+    margin-top: 8px;
+}
+

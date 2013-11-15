@@ -87,7 +87,9 @@ function saveItemToParse(film){
 }
 
 function getAllItemsFromParse(bool){
-    
+
+
+
     var Movie = Parse.Object.extend("Movie");
     var query = new Parse.Query(Movie);
     query.find({
@@ -123,6 +125,7 @@ function getAllItemsFromParse(bool){
             alert("Fehler beim holen der Filme");
         }
     });
+    $("#ajaxloader").fadeOut();
 }
 
 /**

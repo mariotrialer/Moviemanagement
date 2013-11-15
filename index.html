@@ -39,13 +39,16 @@
         $(document).ready(function(){
            connectParse();
            checkAuthentificationState();
+           $("#ajaxloader").hide();
         });
     </script>
 </head>
 <body>
     <!-- Head-Bar with Title and Signin-Button -->
     <div class="navbar navbar-inverse navbar-fixed-top">
+        <img id="ajaxloader" src="img/ajax-loader.gif"/>
         <a class="navbar-brand" href="#">Filmeverwaltung</a>
+
         <div id="buttonContainer">
         </div>
         <div style="clear: both"></div>

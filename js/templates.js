@@ -41,8 +41,9 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
  */
 var addFieldTemplate = "<div id='wrapper'>" +
                              "<h4>Neuen Film speichern</h4>" +
-                             "<input type='text' id='movieTitle' class='input-sm' placeholder='Titel'/>" +
+                             "<input type='text' id='movieTitle' class='input-sm form-control' placeholder='Titel'/>" +
                              "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm'>Speichern</button>" +
+                             "<div style='clear: both;'></div>" +
                              "<div id='errorContainer'></div>" +
                          "</div>";
 
@@ -88,11 +89,11 @@ var notSeenButtonTemplate = "<button class='btn btn-warning' onclick='updateIsSe
  * @type {string}
  */
 var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" + 
-                      "<span id='<%= provider.idOne %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
-                      "<span id='<%= provider.idTwo %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
+                      "<span id='<%= provider.idFive %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
+                      "<span id='<%= provider.idFour %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                       "<span id='<%= provider.idThree %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
-                      "<span id='<%= provider.idFour %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
-                      "<span id='<%= provider.idFive %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
+                      "<span id='<%= provider.idTwo %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
+                      "<span id='<%= provider.idOne %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                     "</div>";
 
 /**

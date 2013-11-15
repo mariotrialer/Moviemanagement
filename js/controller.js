@@ -96,6 +96,7 @@ function createNewItem(){
  * This function calls the functions to append the stored movies to the list
  */
 function pushStoredMoviesToList(bool){
+    $("#ajaxloader").fadeIn();
     getAllItemsFromParse(bool);
 }
 
@@ -117,8 +118,9 @@ function updateIsSeen(bool, id){
     }
 }
 
-function rateMovie(id, object){
-    
+function rateMovie(id){
+    alert(id);
+
 }
 
 /**
