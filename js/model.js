@@ -109,14 +109,19 @@ function getUserItemsFromParse(bool){
                 var provider = {
                     "name":object.get('title'),
                     "isSeen":object.get('isSeen'),
-                    "ration":object.get('ration')
+                    "ration":object.get('ration'),
+                    "seenButton":createId(object.get('title'),8)
                 }
 
                 //Check if Movie was seen
                 if(provider.isSeen){
                     viewable = createIsSeenObject(provider);
+                    //Append the Button
+                    viewable.isSeenHtml = _.template(seenButtonTemplate, {provider:provider});
                 }else{
-                    viewable = createIsntSeenObject(provider);    
+                    viewable = createIsntSeenObject(provider); 
+                    //Append the Button   
+                    viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:provider});
                 }
 
                 appendNewMovie(viewable);
