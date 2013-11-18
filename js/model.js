@@ -86,10 +86,54 @@ function saveItemToParse(film){
     });
 }
 
+function getUserItemsFromParse(bool){
+
+    alert("Tinte");
+
+    $("#tableBody").html("");
+
+    //Detect the User
+    var user = Parse.User.current();
+
+    var Movie = Parse.Object.extend("Movie");
+    var query = new Parse.Query(Movie);
+    query.equalTo("user", user);
+    query.find({
+        success: function(results){
+            for(var i = 0; i < results.length; i++){
+                var object = results[i];
+
+                var viewable;
+
+                //Build the JSON Object
+                var provider = {
+                    "name":object.get('title'),
+                    "isSeen":object.get('isSeen'),
+                    "ration":object.get('ration')
+                }
+
+                //Check if Movie was seen
+                if(provider.isSeen){
+                    viewable = createIsSeenObject(provider);
+                }else{
+                    viewable = createIsntSeenObject(provider);    
+                }
+
+                appendNewMovie(viewable);
+
+                if(bool){
+                    toggleToolBar();
+                }
+
+            } 
+        }
+    })
+}
+
 function getAllItemsFromParse(bool){
 
-
-
+    $("#tableBody").html("");
+    
     var Movie = Parse.Object.extend("Movie");
     var query = new Parse.Query(Movie);
     query.find({
@@ -126,6 +170,7 @@ function getAllItemsFromParse(bool){
         }
     });
     $("#ajaxloader").fadeOut();
+    
 }
 
 /**

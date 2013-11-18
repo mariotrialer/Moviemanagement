@@ -65,6 +65,7 @@ function showLoggedInView(){
     toggleAddArea();
     toggleToolBar();
     toggleSawTitle();
+    getUserItemsFromParse(true);
 }
 
 /**
@@ -77,6 +78,7 @@ function showLoggedOutView(){
     removeOnClickFromStars();
     removeToolBar();
     removeSawTitle();
+    getAllItemsFromParse(false);
 }
 
 /**

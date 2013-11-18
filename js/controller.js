@@ -13,10 +13,8 @@ function checkAuthentificationState(){
     var isAuthorized = checkLoginState();
     //React
     if(isAuthorized){
-        pushStoredMoviesToList(true);
         showLoggedInView();
     }else{
-        pushStoredMoviesToList();
         showLoggedOutView();
     }
 }
