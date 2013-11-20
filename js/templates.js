@@ -42,7 +42,7 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
 var addFieldTemplate = "<div id='wrapper'>" +
                              "<h4>Neuen Film speichern</h4>" +
                              "<input type='text' id='movieTitle' class='input-sm form-control' placeholder='Titel'/>" +
-                             "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm'>Speichern</button>" +
+                             "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm' onkeypress='return pressEnterAddMovie(event)''>Speichern</button>" +
                              "<div style='clear: both;'></div>" +
                              "<div id='errorContainer'></div>" +
                          "</div>";

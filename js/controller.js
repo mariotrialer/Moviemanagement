@@ -239,3 +239,13 @@ function updateName(id){
 function sortTable(){
     sortAlphabetically();
 }
+
+/**
+ * Fires when the user presses enter
+ */
+function pressEnterAddMovie(e) {
+    if (e.keyCode == 13) {
+        createNewItem();
+        
+    }
+}
