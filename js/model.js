@@ -88,8 +88,6 @@ function saveItemToParse(film){
 
 function getUserItemsFromParse(bool){
 
-    alert("Tinte");
-
     $("#tableBody").html("");
 
     //Detect the User
@@ -225,6 +223,7 @@ function removeMovieFromParse(tcId){
  * This function searches for the given Title in OMDB
  */
 function passFirstRequestToOmdb(movieTitle){
+    $("#ajaxloader").fadeIn();
     var idBase = movieTitle.replace(/infoButton_/g, "");
     var titleCell = "titleCell_" + idBase;
     var name = $("#" +titleCell).html();
@@ -245,12 +244,14 @@ function passFirstRequestToOmdb(movieTitle){
             alert("Fehltritt");
         }
     });
+    $("#ajaxloader").hide();
 }
 
 /**
  * This function takes the info of a film with a special id
  */
 function getInfoOfSpecialMovie(){
+    $("#ajaxloader").fadeIn();
     var value = $("#moviesList").val();
     $.ajax({
         url: "http://www.omdbapi.com/?i=" + value,
@@ -275,6 +276,7 @@ function getInfoOfSpecialMovie(){
             alert("Fuck");
         }
     });
+    $("#ajaxloader").hide();
 }
 
 /**
@@ -334,4 +336,18 @@ function getItemsForSort(array){
             }
         }); 
     }
+}
+
+/**
+ * This function gets the Movies the user has already Seen
+ */
+function getSeenItemsFromParse(){
+
+    //Detect the User
+    var user = Parse.User.current();
+
+    var Movie = Parse.Object.extend("Movie");
+    var query = new Parse.Query(Movie);
+    query.equalTo("user", user);
+    query.equalTo("isSeen", true);
 }

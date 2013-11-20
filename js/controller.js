@@ -64,13 +64,15 @@ function createNewItem(){
             "name":title,
             "user":user,
             "isSeen": false,
-            "ration": 0
+            "ration": 0,
+            "seenButton":createId(title,8)
         };
 
         if(item.isSeen){
 
         }else{
             viewable = createIsntSeenObject(item);
+            viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:item});
         }
 
         //Save item to Parse
