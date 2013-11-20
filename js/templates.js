@@ -26,10 +26,10 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
                             "<div style='clear: both;'></div>" +
                             "<div id='formContainer'>" +
                             "<div class='nameColumn'>Benutzername</div>" +
-                            "<div class='fieldColumn'><input class='input-sm' type='text' id='nameField' placeholder='z.B. mario'/></div>" +
+                            "<div class='fieldColumn'><input class='input-sm' type='text' id='nameField' placeholder='z.B. mario' onkeydown='return pressEnterLogin(event)' autofocus/></div>" +
                             "<div style='clear: both'></div>" +
                             "<div class='nameColumn'>Benutzerpasswort</div>" +
-                            "<div class='fieldColumn'><input class='input-sm' type='password' id='passField' placeholder='password' /></div>" +
+                            "<div class='fieldColumn'><input class='input-sm' type='password' id='passField' placeholder='password' onkeydown='return pressEnterLogin(event)'/></div>" +
                             "</div style='clear: both;'>" +
                             "<button class='btn btn-success' onclick='signIn();'>Login</button>"
                         "</div>";
@@ -41,8 +41,8 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
  */
 var addFieldTemplate = "<div id='wrapper'>" +
                              "<h4>Neuen Film speichern</h4>" +
-                             "<input type='text' id='movieTitle' class='input-sm form-control' placeholder='Titel'/>" +
-                             "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm' onkeypress='return pressEnterAddMovie(event)''>Speichern</button>" +
+                             "<input type='text' id='movieTitle' class='input-sm form-control' placeholder='Titel' onkeypress='return pressEnterAddMovie(event)'/>" +
+                             "<button id='storeButton' onclick='createNewItem();' class='btn btn-primary input-sm'>Speichern</button>" +
                              "<div style='clear: both;'></div>" +
                              "<div id='errorContainer'></div>" +
                          "</div>";

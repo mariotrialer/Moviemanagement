@@ -249,3 +249,12 @@ function pressEnterAddMovie(e) {
         
     }
 }
+
+/**
+ * Fires when the user presses Enter
+ */
+function pressEnterLogin(e) {
+    if (e.keyCode == 13) {
+        signIn();;
+    }
+}
