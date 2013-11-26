@@ -64,26 +64,20 @@
 .rating {
   unicode-bidi: bidi-override;
   direction: rtl;
-  text-align: left
+  text-align: left;
 }
 .rating > span {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   width: 1.1em;
 }
 .rating > span:hover:before,
-.rating > span:hover ~ span:before {
-   content: "\2605";
-   position: absolute;
-}
-
-.aktiv{
-    content: "\2605";
-    position: absolute;
-}
-.rating > span.active{
-    content: "\2605";
-    position: absolute;
+.rating > span:hover ~ span:before,
+.rating > span.active:before,
+.rating > span.active ~ span:before {
+  content: "\2605";
+  position: absolute;
 }
 
 .btn-right{

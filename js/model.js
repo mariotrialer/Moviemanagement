@@ -46,11 +46,11 @@ function clearCurrentUser(){
 /**
  * This function is temporaryly used to create a new User on Parse
  */
-function createNewUser(){
+function createNewUser(username, password, email){
     var user = new Parse.User();
-    user.set("username", "fischeni");
-    user.set("password", "password");
-    user.set("email", "fischeni@dhbw-loerrach.de");
+    user.set("username", username);
+    user.set("password", password);
+    user.set("email", email);
 
     user.signUp(null, {
         success: function(user) {
@@ -75,10 +75,11 @@ function saveItemToParse(film){
     movie.set("user", film.user);
     movie.set("isSeen", film.isSeen);
     movie.set("ration", film.ration);
+    movie.set("rating", new Array());
 
     movie.save(null, {
         success: function(movie){
-            alert("Gespeichert");
+            
         },
         error: function(){
 
@@ -86,6 +87,40 @@ function saveItemToParse(film){
     });
 }
 
+function getItemsFromParse(){
+    $("#tableBody").html("");
+    
+    //Detect the User
+    var user = Parse.User.current();
+    
+    var Movie = Parse.Object.extend("Movie");
+    var user = Parse.Object.extend("User");
+    
+    var query = new Parse.Query(Movie);
+    query.include("user");
+    
+    query.find({
+       success: function(data){
+            for(var i = 0; i < data.length; i++){
+                var object = data[i].get("user");
+                
+                //Build the JSON-Object
+                var provider = {
+                    "name":data[i].get("title"),
+                    "isSeen":data[i].get("isSeen"),
+                    "ration":data[i].get("ration"),
+                    "seenButton":createId(data[i].get("title"), 8)
+                };
+                alert(user.get("objectId"));
+            }
+            
+        },
+        error: function(){
+                    
+        }
+    });
+    
+}
 function getUserItemsFromParse(bool){
 
     $("#tableBody").html("");
@@ -95,7 +130,7 @@ function getUserItemsFromParse(bool){
 
     var Movie = Parse.Object.extend("Movie");
     var query = new Parse.Query(Movie);
-    query.equalTo("user", user);
+    //query.equalTo("user", user);
     query.find({
         success: function(results){
             for(var i = 0; i < results.length; i++){
@@ -110,7 +145,7 @@ function getUserItemsFromParse(bool){
                     "ration":object.get('ration'),
                     "seenButton":createId(object.get('title'),8)
                 }
-
+                
                 //Check if Movie was seen
                 if(provider.isSeen){
                     viewable = createIsSeenObject(provider);
@@ -120,7 +155,8 @@ function getUserItemsFromParse(bool){
                     viewable = createIsntSeenObject(provider); 
                     //Append the Button   
                     viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:provider});
-                }
+                } 
+
 
                 appendNewMovie(viewable);
 
@@ -350,4 +386,45 @@ function getSeenItemsFromParse(){
     var query = new Parse.Query(Movie);
     query.equalTo("user", user);
     query.equalTo("isSeen", true);
+}
+
+/**
+ * This function updates the Ration on Parse
+ */
+function updateRationOnParse(name, ration){
+    var titleId = createId(name, 2);
+    var filmName = $("#" + titleId).html();
+    var user = Parse.User.current();
+
+    var Movie = Parse.Object.extend("Movie");
+    var query = new Parse.Query(Movie);
+    query.equalTo("title", filmName);
+    query.equalTo("user", user);
+    query.first({
+        success: function(object){
+            object.set("ration", ration)
+            object.save();
+        },
+        error: function(){
+            alert("Objekt wurde nicht gefunden");
+        }
+    });
+}
+
+
+/**
+ * This function gets the name of the user and appends it to the list
+ */
+function getUserById(id){
+    
+    var User = Parse.Object.extend("User");
+    var query = new Parse.Query(User);
+    query.equalTo("user", id);
+    query.first({
+       success: function(object){
+           var name = object.get('username');
+           alert(name);
+       }
+    });
+    
 }

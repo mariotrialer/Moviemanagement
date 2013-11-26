@@ -118,8 +118,27 @@ function updateIsSeen(bool, id){
     }
 }
 
+/**
+ * Called when user clicks a star
+ */
 function rateMovie(id){
-    alert(id);
+    var title = id.replace(/1/g, "");
+    title = title.replace(/2/g, "");
+    title = title.replace(/3/g, "");
+    title = title.replace(/4/g, "");
+    title = title.replace(/5/g, "");
+
+    var rating = id.replace(title, "");
+    rating = parseInt(rating);
+
+    //Coloring the stars
+    for(var f = 1; f <= rating; f++){
+        var id = title + f;
+        $("#" + id).addClass("active");
+    }
+
+    //Store the rating
+    updateRationOnParse(title, rating);
 
 }
 
@@ -256,5 +275,25 @@ function pressEnterAddMovie(e) {
 function pressEnterLogin(e) {
     if (e.keyCode == 13) {
         signIn();;
+    }
+}
+
+/**
+ * Cals the functions to create the add User Form
+ */
+function getUserCreateForm(){
+    showCreateDialog();
+}
+
+/**
+ * This function creates the new User
+ */
+function createUser(){
+    var isFilled = checkEmptynessOfDialogFields();
+    
+    if(isFilled == 1){
+        var data = getDataOfDialogField();
+        createNewUser(data.nickname, data.password, data.email);
+        closeDialog();
     }
 }

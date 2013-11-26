@@ -65,7 +65,7 @@ function showLoggedInView(){
     toggleAddArea();
     toggleToolBar();
     toggleSawTitle();
-    getUserItemsFromParse(true);
+    getItemsFromParse();
 }
 
 /**
@@ -279,7 +279,13 @@ function showTheInfoDialog(info){
  * This function shows the dialog for renaming
  */
 function showTheRenameDialog(id){
-    var output = _.template(renameTemplate, {});
+    var idBase = id.replace(/renameButton_/g, "");
+    var titleId = "titleCell_" + idBase;
+    var oldTitle = $("#" + titleId).html();
+    var item = {
+        "name":oldTitle
+    }
+    var output = _.template(renameTemplate, {item:item});
     $("#contentOfDialog").html(output);
     $("#dialogOk").attr("onclick", "updateName('" + id +"');");
     openDialog();
@@ -310,27 +316,29 @@ function closeDialog(){
     $("#myModal").modal('hide');
 }
 
+/**
+ * This function sorts the table alphabetically
+ **/
 function sortAlphabetically(){
     
-    var ids = new Array();
+    var rows = new Array();
+    var sortedKeys = new Array();
 
     //Itearte through table
     $('#tableBody tr').each(function(){
-        ids.push(this.id);
+        rows[this.id] = this;
     });  
-
-    var titles = Array();
-
-    //Get the titles and store them in Array
-    for(var i = 0; i < ids.length; i++){
-        var id = ids[i];
-        var titleId = "titleCell_" + id.replace(/rowId_/g, "");
-        var title = $("#" + titleId).html();
-        titles.push(title);
+    
+    for(i in rows){
+        sortedKeys.push(i);
     }
-    var names = titles.sort();
+    sortedKeys.sort();
+    
+    $("#tableBody").html("");
 
-    getItemsForSort(names);
+    for(var e = 0; e < sortedKeys.length; e++){
+        $("#tableBody").append(rows[sortedKeys[e]]);   
+    }
 }
 
 /**
@@ -378,3 +386,67 @@ function toggleIsSeenButton(id){
 
 }
 
+/**
+ * This function sets the new content of the create User dialog
+ * and shows it
+ */
+function showCreateDialog(){
+    var output = _.template(createTemplate, {});
+    $("#contentOfDialog").html(output);
+    $("#dialogOk").html("Benutzer speichern");
+    $("#dialogOk").attr("onclick", "createUser();");   
+    openDialog();
+    deleteLoginArea();
+}
+
+/**
+ * This function checks if the dialog fields to create a user
+ * are empty
+ */
+function checkEmptynessOfDialogFields(){
+    var firstBool = false;
+    var secondBool = false;
+    var thirdBool = false;
+    
+    if($("#desiredNickname").val() != ""){
+        firstBool = true;
+        $("#desiredNickname").removeClass("isFalse");  
+    }else{
+        $("#desiredNickname").toggleClass("isFalse");   
+    }
+    
+    if($("#desiredEmail").val() != ""){
+        secondBool = true;  
+        $("#desiredEmail").removeClass("isFalse");  
+    }else{
+        $("#desiredEmail").toggleClass("isFalse");   
+    }
+    
+    if($("#desiredPassword").val() != ""){
+        thirdBool = true;  
+        $("#desiredPassword").removeClass("isFalse");  
+    }else{
+        $("#desiredPassword").toggleClass("isFalse");  
+    }
+    
+    var isFilled = firstBool & secondBool & thirdBool;
+    return isFilled;
+}
+
+/**
+ * Extracts the Data of the create form
+ */
+function getDataOfDialogField(){
+    var nickname = $("#desiredNickname").val();
+    var email = $("#desiredEmail").val();
+    var password = $("#desiredPassword").val();
+    
+    var retVal = {
+        "nickname":nickname,
+        "email":email,
+        "password":password
+    };
+    
+    return retVal;
+
+}

@@ -26,12 +26,15 @@ var loginAreaTemplate = "<div id='loginFormContainer' class='jumbotron'>" +
                             "<div style='clear: both;'></div>" +
                             "<div id='formContainer'>" +
                             "<div class='nameColumn'>Benutzername</div>" +
-                            "<div class='fieldColumn'><input class='input-sm' type='text' id='nameField' placeholder='z.B. mario' onkeydown='return pressEnterLogin(event)' autofocus/></div>" +
+                            "<div class='fieldColumn'><input class='input-sm form-control' type='text' id='nameField' placeholder='z.B. mario' onkeydown='return pressEnterLogin(event)' autofocus/></div>" +
                             "<div style='clear: both'></div>" +
                             "<div class='nameColumn'>Benutzerpasswort</div>" +
-                            "<div class='fieldColumn'><input class='input-sm' type='password' id='passField' placeholder='password' onkeydown='return pressEnterLogin(event)'/></div>" +
-                            "</div style='clear: both;'>" +
-                            "<button class='btn btn-success' onclick='signIn();'>Login</button>"
+                            "<div class='fieldColumn'><input class='input-sm form-control' type='password' id='passField' placeholder='password' onkeydown='return pressEnterLogin(event)'/></div>" +
+                            "<div class='nameColumn'></div>" + 
+                            "<div class='fieldColumn'><button class='btn btn-success form-control' onclick='signIn();'>Login</button></div>" +
+                            "<div style='clear: both;'></div>" +
+                            "<br>" +
+                            "Noch keinen Account?  <a href='#' onclick='getUserCreateForm();'>Anmelden</a>" +
                         "</div>";
 
 
@@ -56,6 +59,7 @@ var listRowTemplate = "<tr id='<%= item.rowId %>'>" +
                           "<td id='<%= item.seenCell %>'><%= item.isSeenHtml %></td>" +
                           "<td id='<%= item.rateCell %>'><%= item.ration %></td>" +
                           "<td class='toolsItem' id='<%= item.toolBar %>'></td>" +
+                          "<td class='ownerItem'></td>" +
                           "<td><button id='<%= item.infoButton %>' class='btn btn-default' onclick='showInfoDialog(this.id);'>" +
                              "<span class='glyphicon glyphicon-align-justify'></span>" +
                           "</button></td>" +
@@ -126,4 +130,18 @@ var infoTemplate = "<div class='infoContainer'>" +
                    "</div>";
 
 var renameTemplate = "<h3>Name ändern</h3>" +
-                     "<input id='newTitle' type='text' class='form-control' placeholder='Neuer Titel' />";
+                     "<input id='newTitle' type='text' class='form-control' value='<%= item.name %>' />";
+
+var ownerTemplate = "<%= item.name %>";
+
+/**
+ * Template for the create User Dialog
+ */
+var createTemplate = "<div>"+
+                        "<h3>Neuen Benutzer anlegen</h3>" +
+                        "<input type='text' id='desiredNickname' placeholder='Spitzname' class='form-control form-group'>" +
+                        "<input type='email' id='desiredEmail' placeholder='test@example.com' class='form-control form-group'>" +
+                        "<input type='password' class='form-control form-group' id='desiredPassword' placeholder='abcd'>" +
+                    "</div>";
+
+                    
