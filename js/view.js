@@ -79,6 +79,7 @@ function showLoggedOutView(){
     removeToolBar();
     removeSawTitle();
     getAllItemsFromParse(false);
+    removeOwnerHead();
 }
 
 /**
@@ -183,19 +184,31 @@ function toggleToolBar(){
         ids.push(this.id);
     });
 
+    //Detect the current User
+    var user = Parse.User.current();
+    var username = user.get("username");
+
+    //Iterate over the table
     for(var i = 0; i < ids.length; i++){
         var idBase = ids[i].replace(/rowId_/g, "");
-        var toolId = "toolBar_" + idBase;
-        var renameButton = createId(idBase, 5);
-        var removeButton = createId(idBase, 5);
 
-        var item = {
-            "renameButton":renameButton,
-            "removeButton":removeButton
+        //Check if the movie is an own movie
+        var ownerCell = "owner_" + idBase;
+        var owner = $("#" + ownerCell).html();
+
+        if(username == owner){
+            var toolId = "toolBar_" + idBase;
+            var renameButton = createId(idBase, 5);
+            var removeButton = createId(idBase, 5);
+
+            var item = {
+                "renameButton":renameButton,
+                "removeButton":removeButton
+            }
+            
+            var output = _.template(toolTemplate, {item:item});
+            $("#" + toolId).html(output);
         }
-        
-        var output = _.template(toolTemplate, {item:item});
-        $("#" + toolId).html(output);
     }
 }
 
@@ -448,5 +461,42 @@ function getDataOfDialogField(){
     };
     
     return retVal;
+
+}
+
+/**
+ * This function clears the head of the owner column
+ */
+function removeOwnerHead(){
+    $("#ownerHead").html("");
+}
+
+/**
+ * Toggle the isSeenButton to items
+ */
+function toggleIsSeenButton(itemName, username, movieTitle, isSeen){
+
+
+    var isOwner;
+
+    //Check if current user is owner
+    if(itemName == username){
+        //Draw the Button
+        var item = {
+           "seenButton": createId(movieTitle, 8)
+        }
+        isSeenCellId = createId(movieTitle, 3);
+
+        if(isSeen){
+            var output = _.template(seenButtonTemplate, {item:item});
+            $("#" + isSeenCellId).html(output);
+        }else{
+            var output = _.template(notSeenButtonTemplate, {item:item});
+            $("#" + isSeenCellId).html(output);
+        }
+        
+    }else{
+        //Not available
+    }
 
 }

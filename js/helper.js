@@ -52,6 +52,9 @@ function createId(name, type){
         case 11:
             generatedId = "infoButton_" + title;
             break;
+        case 12:
+            generatedId = "owner_" + title;
+            break;
         default:
             alert("Wrong input");
     }
@@ -86,7 +89,9 @@ function createIsntSeenObject(item){
         "removeButton": createId(item.name, 6),
         "toolBar": createId(item.name, 7),
         "ration": _.template(rateTemplate, {provider:provider}),
-        "infoButton":createId(item.name, 11)
+        "infoButton":createId(item.name, 11),
+        "owner": "",
+        "ownerCell": createId(item.name, 12)
     };
 
     return viewable;
@@ -120,8 +125,42 @@ function createIsSeenObject(item){
             "removeButton": createId(item.name, 6),
             "toolBar": createId(item.name, 7),
             "ration": _.template(rateTemplate, {provider:provider}),
-            "infoButton":createId(item.name, 11)
+            "infoButton":createId(item.name, 11),
+            "owner": item.owner,
+            "ownerCell": createId(item.name, 12)
         };
 
     return viewable;  
+}
+
+function createLoggedInObject(item){
+
+        var provider = {
+            "name":item.name,
+            "seenButton":createId(item.name, 8),
+            "starId":createId(item.name, 9), 
+            "idOne":createId(item.name, 10) + "1",
+            "idTwo":createId(item.name, 10) + "2",
+            "idThree":createId(item.name, 10) + "3",
+            "idFour":createId(item.name, 10) + "4",
+            "idFive":createId(item.name, 10) + "5"
+        };
+
+        var viewable = {
+            "name": item.name,
+            "isSeenHtml": '',
+            "rowId": createId(item.name, 1),
+            "titleCell": createId(item.name, 2),
+            "seenCell": createId(item.name, 3),
+            "rateCell": createId(item.name, 4),
+            "renameButton": createId(item.name, 5),
+            "removeButton": createId(item.name, 6),
+            "toolBar": createId(item.name, 7),
+            "ration": _.template(rateTemplate, {provider:provider}),
+            "infoButton":createId(item.name, 11),
+            "owner": item.owner,
+            "ownerCell": createId(item.name, 12)
+        }
+
+        return viewable;
 }

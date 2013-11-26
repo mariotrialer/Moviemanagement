@@ -87,11 +87,12 @@ function saveItemToParse(film){
     });
 }
 
+/**
+ * This function gets the Movies from Parse
+ * when the user is logged in
+ */
 function getItemsFromParse(){
     $("#tableBody").html("");
-    
-    //Detect the User
-    var user = Parse.User.current();
     
     var Movie = Parse.Object.extend("Movie");
     var user = Parse.Object.extend("User");
@@ -101,6 +102,7 @@ function getItemsFromParse(){
     
     query.find({
        success: function(data){
+            $("#ownerHead").html("Erzeuger");
             for(var i = 0; i < data.length; i++){
                 var object = data[i].get("user");
                 
@@ -109,9 +111,28 @@ function getItemsFromParse(){
                     "name":data[i].get("title"),
                     "isSeen":data[i].get("isSeen"),
                     "ration":data[i].get("ration"),
-                    "seenButton":createId(data[i].get("title"), 8)
+                    "seenButton":createId(data[i].get("title"), 8),
+                    "owner":object.get("username")
                 };
-                alert(user.get("objectId"));
+
+                var title = provider.name;
+                var isSeen = provider.isSeen;
+
+                //Detect the User
+                var user = Parse.User.current();
+
+                var currentUserName = user.get("username");
+                var itemUserName = object.get("username");
+
+                //Append the Movie
+                var viewable = createLoggedInObject(provider);
+                appendNewMovie(viewable);
+
+                //Toggle the toolbar to the item
+                toggleToolBar();
+
+                //Toggle the isSeen Button
+                toggleIsSeenButton(currentUserName, itemUserName, title, isSeen);
             }
             
         },
@@ -336,44 +357,6 @@ function renameMovieOnParse(oldName, newName){
 
 }
 
-function getItemsForSort(array){
-
-    $("#tableBody").html("");
-
-    for(var i = 0; i < array.length; i++){
-        var id = array[i];
-
-        var Movie = Parse.Object.extend("Movie");
-
-        var query = new Parse.Query(Movie);
-        query.equalTo("title", id);
-        query.first({
-            success: function(object){
-                var viewable;
-                //alert(JSON.stringify(object));
-                //Build the JSON object
-                var provider = {
-                    "name":object.get('title'),
-                    "isSeen":object.get('isSeen'),
-                    "ration":object.get('ration')
-                }
-
-                //Check if Movie was seen
-                if(provider.isSeen){
-                    viewable = createIsSeenObject(provider);
-                }else{
-                    viewable = createIsntSeenObject(provider);    
-                }
-
-                appendNewMovie(viewable);
-            },
-            error: function(){
-                alert("Objekt wurde nicht gefunden");
-            }
-        }); 
-    }
-}
-
 /**
  * This function gets the Movies the user has already Seen
  */
@@ -411,20 +394,17 @@ function updateRationOnParse(name, ration){
     });
 }
 
+function getUserNameById(name){
 
-/**
- * This function gets the name of the user and appends it to the list
- */
-function getUserById(id){
-    
     var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
-    query.equalTo("user", id);
+    query.equalTo("username", name);
     query.first({
-       success: function(object){
-           var name = object.get('username');
-           alert(name);
-       }
+        success: function(user){
+            alert(user.get("objectId"));
+        }, 
+        error: function(){
+            alert("Fuuu");
+        }
     });
-    
 }

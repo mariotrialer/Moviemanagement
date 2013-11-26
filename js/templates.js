@@ -63,6 +63,7 @@ var listRowTemplate = "<tr id='<%= item.rowId %>'>" +
                           "<td><button id='<%= item.infoButton %>' class='btn btn-default' onclick='showInfoDialog(this.id);'>" +
                              "<span class='glyphicon glyphicon-align-justify'></span>" +
                           "</button></td>" +
+                          "<td class='owner' id='<%= item.ownerCell %>''><%= item.owner %></td>" +
                       "</tr>";
 
 /**

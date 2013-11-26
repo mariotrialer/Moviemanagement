@@ -48,6 +48,9 @@ function logOut(){
 function createNewItem(){
     var title = getNewMovieTitle();
 
+    var user = Parse.User.current();
+    var username = user.get("username");
+
     var viewable;
 
     //Check if field is filled
@@ -65,13 +68,14 @@ function createNewItem(){
             "user":user,
             "isSeen": false,
             "ration": 0,
-            "seenButton":createId(title,8)
+            "seenButton":createId(title,8),
+            "owner": username
         };
 
         if(item.isSeen){
 
         }else{
-            viewable = createIsntSeenObject(item);
+            viewable = createLoggedInObject(item);
             viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:item});
         }
 
