@@ -55,6 +55,9 @@ function createId(name, type){
         case 12:
             generatedId = "owner_" + title;
             break;
+        case 13:
+            generatedId = "avgStar_" + title;
+            break;
         default:
             alert("Wrong input");
     }

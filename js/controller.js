@@ -59,34 +59,46 @@ function createNewItem(){
         //Remove Error
         $("#errorContainer").html("");
         destroyErrorField();
-
-        //Detect the User
-        var user = Parse.User.current();
-
-        var item = {
-            "name":title,
-            "user":user,
-            "isSeen": false,
-            "ration": 0,
-            "seenButton":createId(title,8),
-            "owner": username
-        };
-
-        if(item.isSeen){
-
+        
+        //Check whether the Movie exists
+        var exists = checkIfMovieExists(title);
+        
+        if(exists){
+            //Movie already exists
+            $("#errorContainer").html("<span class='error'>Dieser Film befindet sich bereits in der Datenbank</span>");   
+            makeErrorField();
         }else{
-            viewable = createLoggedInObject(item);
-            viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:item});
+            //Detect the User
+            var user = Parse.User.current();
+
+            var item = {
+                "name":title,
+                "user":user,
+                "isSeen": false,
+                "ration": 0,
+                "seenButton":createId(title,8),
+                "owner": username
+            };
+
+            if(item.isSeen){
+
+            }else{
+                viewable = createLoggedInObject(item);
+                viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:item});
+            }
+
+            //Save item to Parse
+            saveItemToParse(item);
+            
+            //Save the rating object
+            saveRateObject(title);
+
+            //Append the Item
+            appendNewMovie(viewable);
+
+            //Toggle Toolbar to new Item
+            toggleToolBar();   
         }
-
-        //Save item to Parse
-        saveItemToParse(item);
-
-        //Append the Item
-        appendNewMovie(viewable);
-
-        //Toggle Toolbar to new Item
-        toggleToolBar();
 
         //Clear the Field
         clearInputField();
@@ -131,6 +143,8 @@ function rateMovie(id){
     title = title.replace(/3/g, "");
     title = title.replace(/4/g, "");
     title = title.replace(/5/g, "");
+    
+    
 
     var rating = id.replace(title, "");
     rating = parseInt(rating);
@@ -140,9 +154,16 @@ function rateMovie(id){
         var id = title + f;
         $("#" + id).addClass("active");
     }
+    
+    //id of the titlecell
+    var titleCell = createId(title, 2);
+    var movieTitle = $("#" + titleCell).html();
+    
+    //save the Rating in Parse
+    pushRatingToMovie(movieTitle, rating);
 
     //Store the rating
-    updateRationOnParse(title, rating);
+    //updateRationOnParse(title, rating);
 
 }
 

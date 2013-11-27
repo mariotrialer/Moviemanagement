@@ -74,8 +74,6 @@ function saveItemToParse(film){
     movie.set("title", film.name);
     movie.set("user", film.user);
     movie.set("isSeen", film.isSeen);
-    movie.set("ration", film.ration);
-    movie.set("rating", new Array());
 
     movie.save(null, {
         success: function(movie){
@@ -102,7 +100,7 @@ function getItemsFromParse(){
     
     query.find({
        success: function(data){
-            $("#ownerHead").html("Erzeuger");
+            showOwnerHead();
             for(var i = 0; i < data.length; i++){
                 var object = data[i].get("user");
                 
@@ -114,6 +112,10 @@ function getItemsFromParse(){
                     "seenButton":createId(data[i].get("title"), 8),
                     "owner":object.get("username")
                 };
+                
+                //Get the Rating
+                var MovieRating = Parse.Object.extend("MovieRating");
+                
 
                 var title = data[i].get("title");
                 var isSeen = data[i].get("isSeen");
@@ -142,6 +144,7 @@ function getItemsFromParse(){
     });
     
 }
+
 function getUserItemsFromParse(bool){
 
     $("#tableBody").html("");
@@ -394,17 +397,47 @@ function updateRationOnParse(name, ration){
     });
 }
 
-function getUserNameById(name){
+/**
+ * This function creates a new Rating Object on Parse
+ */
+function saveRateObject(title){
+    var MovieRating = Parse.Object.extend("MovieRating"); 
+    var movieRating = new MovieRating();
 
-    var User = Parse.Object.extend("User");
-    var query = new Parse.Query(User);
-    query.equalTo("username", name);
-    query.first({
-        success: function(user){
-            alert(user.get("objectId"));
-        }, 
+    movieRating.set("title", title);
+    movieRating.set("rating", new Array());
+
+    movieRating.save(null, {
+        success: function(movie){
+            
+        },
         error: function(){
-            alert("Fuuu");
+
         }
     });
+    
+}
+
+/**
+ * This function pushes the Rating to the Array on Parse
+ */
+function pushRatingToMovie(movieTitle, rating){
+    
+    var user = Parse.User.current();
+    var username = user.get("username"); 
+    
+    var MovieRating = Parse.Object.extend("MovieRating");
+    var query = new Parse.Query(MovieRating);
+    query.equalTo("title", movieTitle);
+    query.first({
+        success: function(object){
+            var ratingArray = object.get("rating");
+            ratingArray[username] = rating;
+            var updatedArray = ratingArray;
+            alert(updatedArray[username]);
+            object.set("rating", updatedArray);
+            object.save();
+        }
+    });
+    
 }

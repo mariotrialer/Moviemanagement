@@ -65,6 +65,7 @@ function showLoggedInView(){
     toggleAddArea();
     toggleToolBar();
     toggleSawTitle();
+    showRateHead();
     getItemsFromParse();
 }
 
@@ -80,6 +81,7 @@ function showLoggedOutView(){
     removeSawTitle();
     getAllItemsFromParse(false);
     removeOwnerHead();
+    removeRateHead();
 }
 
 /**
@@ -465,10 +467,25 @@ function getDataOfDialogField(){
 }
 
 /**
+ * This function fills the head of the owner column
+ */
+function showOwnerHead(){
+    $("#ownerHead").html("Besitzer");
+}
+
+/**
  * This function clears the head of the owner column
  */
 function removeOwnerHead(){
     $("#ownerHead").html("");
+}
+
+function showRateHead(){
+    $("#rateHead").html("Eigene Bewertung");   
+}
+
+function removeRateHead(){
+    $("#rateHead").html("");   
 }
 
 /**
@@ -499,4 +516,20 @@ function toggleIsSeenButton(itemName, username, movieTitle, isSeen){
         //Not available
     }
 
+}
+
+/**
+ * This function checks if a Movie already exists by searching
+ * for its id
+ */
+function checkIfMovieExists(title){ 
+    
+    var rowId = createId(title, 1);
+    
+    if($("#" + rowId).length > 0){
+        return true;
+    }else{
+        return false;   
+    }
+    
 }

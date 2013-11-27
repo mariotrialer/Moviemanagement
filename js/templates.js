@@ -57,6 +57,7 @@ var addFieldTemplate = "<div id='wrapper'>" +
 var listRowTemplate = "<tr id='<%= item.rowId %>'>" +
                           "<td id='<%= item.titleCell %>'><%= item.name %></td>" +
                           "<td id='<%= item.seenCell %>'><%= item.isSeenHtml %></td>" +
+                          "<td></td>" +
                           "<td id='<%= item.rateCell %>'><%= item.ration %></td>" +
                           "<td class='toolsItem' id='<%= item.toolBar %>'></td>" +
                           "<td class='ownerItem'></td>" +
@@ -100,6 +101,17 @@ var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" +
                       "<span id='<%= provider.idTwo %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                       "<span id='<%= provider.idOne %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                     "</div>";
+
+/**
+ * Template for the Area where average-rating is displayed
+ */
+var avgRateTemplate = "<div id='<%= provider.avgId %>' class='avgRating'>" +
+                            "<span id='<%= provider.avg1 %> class='avgStar'>☆</span>" +
+                            "<span id='<%= provider.avg2 %> class='avgStar'>☆</span>" +
+                            "<span id='<%= provider.avg3 %> class='avgStar'>☆</span>" +
+                            "<span id='<%= provider.avg4 %> class='avgStar'>☆</span>" +
+                            "<span id='<%= provider.avg5 %> class='avgStar'>☆</span>" +
+                      "</div>;
 
 /**
  * Template for the tools
