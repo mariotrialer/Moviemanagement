@@ -130,6 +130,15 @@ function getItemsFromParse(){
                 var viewable = createLoggedInObject(provider);
                 appendNewMovie(viewable);
 
+                //Toggle avgstars
+                toggleAvgRating(data[i].get("title"));
+
+                //Color avgstars
+                getAverageRatingOfMovie(data[i].get("title"));
+
+                //Take the Rating
+                getOwnRatingOfMovie(data[i].get("title"));
+
                 //Toggle the toolbar to the item
                 toggleToolBar();
 
@@ -193,7 +202,12 @@ function getUserItemsFromParse(bool){
     })
 }
 
+/**
+ * This function gets all items to present to the unauthorized user
+ */
 function getAllItemsFromParse(bool){
+
+    $("#ajaxloader").fadeIn();
 
     $("#tableBody").html("");
     
@@ -221,6 +235,10 @@ function getAllItemsFromParse(bool){
                 }
 
                 appendNewMovie(viewable);
+
+                toggleAvgRating(provider.name);
+
+                getAverageRatingOfMovie(provider.name)
 
                 if(bool){
                     toggleToolBar();
@@ -432,12 +450,109 @@ function pushRatingToMovie(movieTitle, rating){
     query.first({
         success: function(object){
             var ratingArray = object.get("rating");
-            ratingArray[username] = rating;
-            var updatedArray = ratingArray;
-            alert(updatedArray[username]);
+            var updatedArray = new Array();
+
+            //Object to store
+            var ratingObject = {
+                "user":username,
+                "rating":rating
+            };
+
+            ratingArray.push(ratingObject);
+
+            //Iterate over the array
+            for(var i = 0; i < ratingArray.length; i++){
+                updatedArray.push(ratingArray[i]);
+            }
+
+            //Remove the ratability for this user
+            var idBase = createId(movieTitle, 10);
+
+            for(var z = 1; z <= 5; z++){
+                $("#" + idBase + z).attr("onclick", "alert('Tinte');");
+            }
+
             object.set("rating", updatedArray);
             object.save();
         }
     });
     
+}
+
+/**
+ * This function gets the own rating from parse and imports
+ * it to the view
+ */
+function getOwnRatingOfMovie(movieTitle){
+
+    var user = Parse.User.current();
+    var username = user.get("username");
+
+    var idBase = createId(movieTitle, 10);
+
+    var MovieRating = Parse.Object.extend("MovieRating");
+    var query = new Parse.Query(MovieRating);
+    query.equalTo("title", movieTitle);
+    query.first({
+        success: function(data){
+            var ratingArray = data.get("rating");
+            var isRatedByUser;
+
+            //Iterate over the rating array
+            for(var i = 0; i < ratingArray.length; i++){
+                if(ratingArray[i].user == username){
+                    isRatedByUser = true;
+                    //Color the stars
+                    var rating = ratingArray[i].rating;
+                    for(var y = 1; y <= rating; y++){
+                        $("#" + idBase + y).addClass('active');
+                        $("#" + idBase + y).attr("onclick", "");
+                    }
+
+                    //Remove the onclicks
+                    for(var z = 1; z <= 5; z++){
+                        $("#" + idBase + z).attr("onclick", "");
+                        $("#" + idBase + z).removeClass("");
+                    }
+                }else{
+
+                }
+            }
+        }
+    })
+}
+
+/**
+ * This function gets the average Rating of a Movie
+ */
+function getAverageRatingOfMovie(movieTitle){
+    var idBase = createId(movieTitle, 10);
+
+    var MovieRating = Parse.Object.extend("MovieRating");
+    var query = new Parse.Query(MovieRating);
+    query.equalTo("title", movieTitle);
+    query.first({
+        success: function(data){
+            var ratingArray = data.get("rating");
+            var allRating = 0;
+
+            //Calc the whole rating
+            for(var i = 0; i < ratingArray.length; i++){
+                nextRating = parseInt(ratingArray[i].rating);  
+                allRating = allRating + nextRating;
+            }
+
+            //Calc the average
+            var average = Math.round(allRating / ratingArray.length);
+
+            //Set the Value in the View
+            var avgStarIdBase = createId(movieTitle, 13);
+
+            //Iterate
+            for(var y = 1; y <= average; y++){
+                $("#" + avgStarIdBase + y).addClass("active");
+            }
+
+        }
+    });
 }

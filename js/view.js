@@ -533,3 +533,41 @@ function checkIfMovieExists(title){
     }
     
 }
+
+/**
+ * This function toggles the Rating stars for the Average
+ */
+function toggleAvgRating(movieName){
+
+    var avgId = createId(movieName, 14);
+
+    var provider = createAvgObject(movieName);
+
+    var output = _.template(avgRateTemplate, {provider:provider});
+
+    $("#" + avgId).html(output);
+}
+
+/**
+ * Sorts the list ascending
+ */
+function sortListByRatingAscending(){
+    var rows = new Array();
+    var sortedKeys = new Array();
+
+    //Itearte through table
+    $('#tableBody tr').each(function(){
+        rows[this.id] = this;
+    });  
+    
+    for(i in rows){
+        sortedKeys.push(i);
+    }
+    sortedKeys.sort();
+    
+    $("#tableBody").html("");
+
+    for(var e = 0; e < sortedKeys.length; e++){
+        $("#tableBody").append(rows[sortedKeys[e]]);   
+    }
+}
