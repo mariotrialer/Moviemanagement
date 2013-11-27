@@ -111,7 +111,7 @@ var avgRateTemplate = "<div id='<%= provider.avgId %>' class='avgRating'>" +
                             "<span id='<%= provider.avg3 %> class='avgStar'>☆</span>" +
                             "<span id='<%= provider.avg4 %> class='avgStar'>☆</span>" +
                             "<span id='<%= provider.avg5 %> class='avgStar'>☆</span>" +
-                      "</div>;
+                      "</div>";
 
 /**
  * Template for the tools
