@@ -115,8 +115,8 @@ function getItemsFromParse(){
                     "owner":object.get("username")
                 };
 
-                var title = provider.name;
-                var isSeen = provider.isSeen;
+                var title = data[i].get("title");
+                var isSeen = data[i].get("isSeen");
 
                 //Detect the User
                 var user = Parse.User.current();

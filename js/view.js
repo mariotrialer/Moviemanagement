@@ -482,16 +482,16 @@ function toggleIsSeenButton(itemName, username, movieTitle, isSeen){
     //Check if current user is owner
     if(itemName == username){
         //Draw the Button
-        var item = {
+        var provider = {
            "seenButton": createId(movieTitle, 8)
         }
         isSeenCellId = createId(movieTitle, 3);
 
         if(isSeen){
-            var output = _.template(seenButtonTemplate, {item:item});
+            var output = _.template(seenButtonTemplate, {provier:provider});
             $("#" + isSeenCellId).html(output);
         }else{
-            var output = _.template(notSeenButtonTemplate, {item:item});
+            var output = _.template(notSeenButtonTemplate, {provider:provider});
             $("#" + isSeenCellId).html(output);
         }
         
