@@ -61,6 +61,18 @@
     margin-left: 10px;
 }
 
+/* rating */ 
+.rating { unicode-bidi: bidi-override; direction: rtl; text-align: left;}
+
+.rating > span { display: inline-block; position: relative; width: 1.1em; }
+
+.enabled > span:hover:before, .enabled > span:hover ~ span:before, .rating > span.active:before, .rating > span.active ~ span:before { content: "\2605"; position: absolute; }
+
+.enabled > span { cursor: pointer; }
+
+.disabled, .disabled > span { color: #999; }
+
+/*
 .rating {
   unicode-bidi: bidi-override;
   direction: rtl;
@@ -79,6 +91,7 @@
   content: "\2605";
   position: absolute;
 }
+*/
 
 .btn-right{
   margin-left: 5px;
@@ -126,5 +139,9 @@
 
 #ajaxloader{
     margin-top: 8px;
+}
+
+#nameHead:hover{
+    background: #D1D1D1;
 }
 

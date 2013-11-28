@@ -67,6 +67,7 @@ function showLoggedInView(){
     toggleSawTitle();
     showRateHead();
     getItemsFromParse();
+    showSortionSelect();
 }
 
 /**
@@ -82,6 +83,7 @@ function showLoggedOutView(){
     getAllItemsFromParse(false);
     removeOwnerHead();
     removeRateHead();
+    removeSortionSelect();
 }
 
 /**
@@ -334,7 +336,7 @@ function closeDialog(){
 /**
  * This function sorts the table alphabetically
  **/
-function sortAlphabetically(){
+function sortAlphabeticallyAscending(){
     
     var rows = new Array();
     var sortedKeys = new Array();
@@ -354,6 +356,41 @@ function sortAlphabetically(){
     for(var e = 0; e < sortedKeys.length; e++){
         $("#tableBody").append(rows[sortedKeys[e]]);   
     }
+
+    //Override the onclick
+    $("#nameHead").attr("onclick", "sortAlphabeticallyDescending();");
+}
+
+function sortAlphabeticallyDescending(){
+
+    var rows = new Array();
+    var sortedKeys = new Array();
+    var descendingKeys = new Array();
+
+    //Iterate trough table
+    $("#tableBody tr").each(function(){
+        rows[this.id] = this;
+    });
+
+    for(i in rows){
+        sortedKeys.push(i);
+    }
+
+    sortedKeys.sort();
+
+    //Reverse the order in new array
+    for(var j = sortedKeys.length-1; j >= 0 ; j--){
+        descendingKeys.push(sortedKeys[j]);
+    }
+
+    //Append the rows
+    for(var k = 0; k < descendingKeys.length; k++){
+        $("#tableBody").append(rows[descendingKeys[k]]);
+    }
+
+    //Override the onclick
+    $("#nameHead").attr("onclick", "sortAlphabeticallyAscending();");
+
 }
 
 /**
@@ -505,7 +542,7 @@ function toggleIsSeenButton(itemName, username, movieTitle, isSeen){
         isSeenCellId = createId(movieTitle, 3);
 
         if(isSeen){
-            var output = _.template(seenButtonTemplate, {provier:provider});
+            var output = _.template(seenButtonTemplate, {provider:provider});
             $("#" + isSeenCellId).html(output);
         }else{
             var output = _.template(notSeenButtonTemplate, {provider:provider});
@@ -570,4 +607,76 @@ function sortListByRatingAscending(){
     for(var e = 0; e < sortedKeys.length; e++){
         $("#tableBody").append(rows[sortedKeys[e]]);   
     }
+}
+
+function showSortionSelect(){
+    var output = _.template(selectTemplate, {});
+    $("#selectContainer").html(output);
+}
+
+function removeSortionSelect(){
+    $("#sortionSelect").remove();
+}
+
+
+/**
+ * This function shows only the seen Movies
+ */
+function showSeenMovies(){
+    var rows = new Array();
+    var sortedKeys = new Array();
+    var seenMovies = new Array();
+
+    //Iterate trough table
+    $("#tableBody tr").each(function(){
+        rows[this.id] = this;
+    });
+
+    //Check if the Movie is Seen
+    for(i in rows){
+        var idBase = i.replace(/rowId_/g, "");
+        var seenButtonId = createId(idBase,8);
+        //If is Seen push to seenMovies
+        if($("#" + seenButtonId).hasClass("btn-success")){
+            seenMovies.push(i);
+        }else{
+            $("#" + i).remove();
+        }
+    }
+
+    //Append the rows
+    for(var k = 0; k < seenMovies.length; k++){
+        $("#tableBody").append(rows[seenMovies[k]]);
+    }    
+}
+
+/**
+ * This function shows only the unseen Movies
+ */
+function showUnseenMovies(){
+    var rows = new Array();
+    var sortedKeys = new Array();
+    var unseenMovies = new Array();
+
+    //Iterate trough table
+    $("#tableBody tr").each(function(){
+        rows[this.id] = this;
+    });
+
+    //Check if the Movie is Seen
+    for(i in rows){
+        var idBase = i.replace(/rowId_/g, "");
+        var seenButtonId = createId(idBase,8);
+        //If is Seen push to seenMovies
+        if($("#" + seenButtonId).hasClass("btn-warning")){
+            unseenMovies.push(i);
+        }else{
+            $("#" + i).remove();
+        }
+    }
+
+    //Append the rows
+    for(var k = 0; k < seenMovies.length; k++){
+        $("#tableBody").append(rows[unseenMovies[k]]);
+    }    
 }

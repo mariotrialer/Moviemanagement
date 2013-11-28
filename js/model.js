@@ -244,6 +244,10 @@ function getAllItemsFromParse(bool){
                     toggleToolBar();
                 }
 
+                //Clear the rating
+                var rateId = createId(provider.name,4);
+                $("#" + rateId).html("");
+
             }
         },
         error: function(){
@@ -287,12 +291,33 @@ function removeMovieFromParse(tcId){
         success: function(object){
             object.destroy({
                 success: function(){
-                    
+                    removeMovieratingFromParse(title);
                 },
                 error: function(){
 
                 }
             });
+        }
+    });
+}
+
+/**
+ * This funtion removes the Rating Object of the Movie
+ */
+function removeMovieratingFromParse(title){
+
+    var MovieRating = Parse.Object.extend("MovieRating");
+    var query = new Parse.Query(MovieRating);
+    query.equalTo("title", title);
+    query.first({
+        success: function(object){
+            object.destroy({
+                success: function(){
+                },
+                error: function(){
+
+                }
+            })
         }
     });
 }
@@ -458,6 +483,7 @@ function pushRatingToMovie(movieTitle, rating){
                 "rating":rating
             };
 
+
             ratingArray.push(ratingObject);
 
             //Iterate over the array
@@ -501,7 +527,6 @@ function getOwnRatingOfMovie(movieTitle){
             //Iterate over the rating array
             for(var i = 0; i < ratingArray.length; i++){
                 if(ratingArray[i].user == username){
-                    isRatedByUser = true;
                     //Color the stars
                     var rating = ratingArray[i].rating;
                     for(var y = 1; y <= rating; y++){
@@ -512,8 +537,12 @@ function getOwnRatingOfMovie(movieTitle){
                     //Remove the onclicks
                     for(var z = 1; z <= 5; z++){
                         $("#" + idBase + z).attr("onclick", "");
-                        $("#" + idBase + z).removeClass("");
                     }
+
+                    //Remove the enabled class from parent
+                    var rateId = createId(movieTitle, 4);
+                    $("#" + rateId).removeClass("enabled");
+
                 }else{
 
                 }

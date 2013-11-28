@@ -94,7 +94,7 @@ var notSeenButtonTemplate = "<button class='btn btn-warning' onclick='updateIsSe
  * Template for the Rate Area
  * @type {string}
  */
-var rateTemplate = "<div id='<%= provider.starId %>' class='rating'>" + 
+var rateTemplate = "<div id='<%= provider.starId %>' class='rating enabled'>" + 
                       "<span id='<%= provider.idFive %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                       "<span id='<%= provider.idFour %>' onclick='rateMovie(this.id)' class='star'>☆</span>" +
                       "<span id='<%= provider.idThree %>' onclick='rateMovie(this.id)' class='star'>☆</span>" + 
@@ -156,5 +156,11 @@ var createTemplate = "<div>"+
                         "<input type='email' id='desiredEmail' placeholder='test@example.com' class='form-control form-group'>" +
                         "<input type='password' class='form-control form-group' id='desiredPassword' placeholder='abcd'>" +
                     "</div>";
+
+var selectTemplate = "<select id='sortionSelect' class='form-control' onchange='processSelect();'>" + 
+                        "<option value='none'>Kein Filter</option>" +
+                        "<option value='seen'>Nur gesehene Filme</option>" +
+                        "<option value='unseen'>Nur ungesehene Filme</option>" +
+                     "</select>";
 
                     

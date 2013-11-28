@@ -162,8 +162,8 @@ function rateMovie(id){
     //save the Rating in Parse
     pushRatingToMovie(movieTitle, rating);
 
-    //Store the rating
-    //updateRationOnParse(title, rating);
+    //Actualize the avg rating
+    getAverageRatingOfMovie(movieTitle);
 
 }
 
@@ -280,8 +280,8 @@ function updateName(id){
     $("#" + newTitleCellId).html($("#newTitle").val());
 }
 
-function sortTable(){
-    sortAlphabetically();
+function sortTableAlphabeticallyAscending(){
+    sortAlphabeticallyAscending();
 }
 
 /**
@@ -320,5 +320,16 @@ function createUser(){
         var data = getDataOfDialogField();
         createNewUser(data.nickname, data.password, data.email);
         closeDialog();
+    }
+}
+
+function processSelect(){
+    var value = $("#sortionSelect").val();
+    if(value == "seen"){
+        getItemsFromParse();
+        showSeenMovies();
+    }else if(value == "unseen"){
+        getItemsFromParse();
+        showUnseenMovies();
     }
 }

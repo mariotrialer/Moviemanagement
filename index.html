@@ -69,9 +69,11 @@
 
         <!-- Here will be the table -->
         <div id="tableContainer">
+            <p>Durch klick auf den jeweiligen Spaltenkopf kann die Tabelle sortiert werden</p>
+            <div id="selectContainer"></div>
             <table id="movieList" class="table table-striped table-hover">
                 <thead id='tableHead'>
-                    <th>Titel</th>
+                    <th id='nameHead' onclick='sortTableAlphabeticallyAscending();'>Titel</th>
                     <th id="sawHead"></th>
                     <th>Bewertung</th>
                     <th id="rateHead">Eigene Bewertung</th>
@@ -84,11 +86,6 @@
 
                 </tbody>
             </table>
-        </div>
-
-        <!-- Sort Button -->
-        <div>
-            <button onclick="sortTable();" class='btn btn-std btn-default'>Sortieren</button>
         </div>
     </div>
     <!-- Popup-->
