@@ -640,7 +640,7 @@ function showSeenMovies(){
         if($("#" + seenButtonId).hasClass("btn-success")){
             seenMovies.push(i);
         }else{
-            $("#" + i).remove();
+            $("#" + i).hide();
         }
     }
 
@@ -671,7 +671,7 @@ function showUnseenMovies(){
         if($("#" + seenButtonId).hasClass("btn-warning")){
             unseenMovies.push(i);
         }else{
-            $("#" + i).remove();
+            $("#" + i).hide();
         }
     }
 
@@ -680,3 +680,29 @@ function showUnseenMovies(){
         $("#tableBody").append(rows[unseenMovies[k]]);
     }    
 }
+
+/** 
+ * Throws the dialog if a movie was already rated
+ */
+function showAlreadyRated(){
+    alert("Sie haben diesen Film bereits bewertet");
+}
+
+/**
+ * Iterates over the table and makes all elements visible
+ */
+function makeAllElementsVisible(){
+
+    var ids = new Array();
+
+    //Store the ids in an array
+    $("#tableBody tr").each(function(){
+        ids.push(this.id);
+    });
+
+    //Make them visible
+    for(var i = 0; i < ids.length; i++){
+        $("#" + ids[i]).show();
+    }
+}
+

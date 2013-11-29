@@ -495,7 +495,7 @@ function pushRatingToMovie(movieTitle, rating){
             var idBase = createId(movieTitle, 10);
 
             for(var z = 1; z <= 5; z++){
-                $("#" + idBase + z).attr("onclick", "alert('Tinte');");
+                $("#" + idBase + z).attr("onclick", "showAlreadyRated();");
             }
 
             object.set("rating", updatedArray);

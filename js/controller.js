@@ -323,13 +323,18 @@ function createUser(){
     }
 }
 
+/**
+ * Reacts to a change in the Filter-Select
+ */
 function processSelect(){
     var value = $("#sortionSelect").val();
     if(value == "seen"){
-        getItemsFromParse();
+        makeAllElementsVisible();
         showSeenMovies();
     }else if(value == "unseen"){
-        getItemsFromParse();
+        makeAllElementsVisible();
         showUnseenMovies();
+    }else if(value == "none"){
+        makeAllElementsVisible();
     }
 }
