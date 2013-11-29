@@ -152,9 +152,9 @@ var ownerTemplate = "<%= item.name %>";
  */
 var createTemplate = "<div>"+
                         "<h3>Neuen Benutzer anlegen</h3>" +
-                        "<input type='text' id='desiredNickname' placeholder='Spitzname' class='form-control form-group'>" +
-                        "<input type='email' id='desiredEmail' placeholder='test@example.com' class='form-control form-group'>" +
-                        "<input type='password' class='form-control form-group' id='desiredPassword' placeholder='abcd'>" +
+                        "<input type='text' id='desiredNickname' placeholder='Benutzername' class='form-control form-group'>" +
+                        "<input type='email' id='desiredEmail' placeholder='E-Mail Adresse' class='form-control form-group'>" +
+                        "<input type='password' class='form-control form-group' id='desiredPassword' placeholder='Passwort'>" +
                     "</div>";
 
 var selectTemplate = "<select id='sortionSelect' class='form-control' onchange='processSelect();'>" + 
