@@ -68,6 +68,7 @@ function showLoggedInView(){
     showRateHead();
     getItemsFromParse();
     showSortionSelect();
+    showGreetText();
 }
 
 /**
@@ -84,6 +85,7 @@ function showLoggedOutView(){
     removeOwnerHead();
     removeRateHead();
     removeSortionSelect();
+    hideGreetText();
 }
 
 /**
@@ -290,6 +292,24 @@ function showTheInfoDialog(info){
     var output = _.template(infoTemplate, {info:info});
     $("#dialogOk").attr("onclick", "closeDialog();");
     $("#contentOfDialog").html(output);   
+}
+
+/**
+ * This function shows the login error dialog
+ */
+function showTeLoginErrorDialog(){
+    var output = _.template(loginErrorTemplate, {});
+    $("#dialogOk").attr("onclick", "closeDialog();");
+    $("#contentOfDialog").html(output);
+    openDialog();
+}
+
+function showTheUserCreatedDialog(){
+    var output = _.template(userCreatedTemplate, {});
+    $("#dialogOk").attr("onclick", "closeDialog();");
+    $("#dialogOk").html("Ok");
+    $("#contentOfDialog").html(output);
+    openDialog();
 }
 
 /**
@@ -704,5 +724,25 @@ function makeAllElementsVisible(){
     for(var i = 0; i < ids.length; i++){
         $("#" + ids[i]).show();
     }
+}
+
+/**
+ * Shows the title in the navbar
+ */
+function showGreetText(){
+
+    var user = Parse.User.current();
+    var username = user.get("username");
+
+    var greetText = "Moviemanagement - " + username;
+
+    $("#titleText").html(greetText);
+}
+
+/**
+ * Sets the title to "Moviemanagement"
+ */
+function hideGreetText(){
+    $("#titleText").html("Moviemanagement");
 }
 

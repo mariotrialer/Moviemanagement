@@ -157,10 +157,20 @@ var createTemplate = "<div>"+
                         "<input type='password' class='form-control form-group' id='desiredPassword' placeholder='Passwort'>" +
                     "</div>";
 
+/**
+ * Template for the Filter-Select
+ */
 var selectTemplate = "<select id='sortionSelect' class='form-control' onchange='processSelect();'>" + 
                         "<option value='none'>Kein Filter</option>" +
                         "<option value='seen'>Nur gesehene Filme</option>" +
                         "<option value='unseen'>Nur ungesehene Filme</option>" +
                      "</select>";
+
+
+var loginErrorTemplate = "<h3>Ungültige Anmeldedaten</h3>" +
+                            "<p>Bitte überprüfen sie ihre Angaben und versuchen sie es erneut</p>";
+
+var userCreatedTemplate = "<h3>Herzlichen Glückwunsch</h3>" +
+                            "<p>Ihr Account wurde erfolgreich angelegt und sie können ihn nun verwenden</p>";
 
                     

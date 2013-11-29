@@ -31,7 +31,7 @@ function loginUser(formData){
             showLoggedInView();
         },
         error: function(){
-            alert("Verdammt");
+            showTeLoginErrorDialog();
         }
     });
 }
@@ -54,10 +54,9 @@ function createNewUser(username, password, email){
 
     user.signUp(null, {
         success: function(user) {
-            alert("Yes");
+            showTheUserCreatedDialog();
         },
         error: function(user, error) {
-            // Show the error message somewhere and let the user try again.
             alert("Error: " + error.code + " " + error.message);
         }
     });
@@ -584,4 +583,8 @@ function getAverageRatingOfMovie(movieTitle){
 
         }
     });
+}
+
+function sortByOwnRatingDescending(){
+
 }
