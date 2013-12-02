@@ -165,6 +165,10 @@ function rateMovie(id){
     //Actualize the avg rating
     getAverageRatingOfMovie(movieTitle);
 
+    //Set Movie to isSeen
+    updateIsSeenOnParse(movieTitle, true);
+    createSeenButton(movieTitle);
+
 }
 
 /**
@@ -280,6 +284,9 @@ function updateName(id){
     $("#" + newTitleCellId).html($("#newTitle").val());
 }
 
+/**
+ * Calls the function that sorts ascending
+ */
 function sortTableAlphabeticallyAscending(){
     sortAlphabeticallyAscending();
 }

@@ -1,10 +1,5 @@
 /**
- * This function creates an id dynamically from the given string
- * @param type
- * if type = 1 => rowId
- * if type = 2 => titleCell
- * if type = 3 => seenCell
- * if type = 4 => rateCell
+ * This function serves as factory for ids
  */
 function createId(name, type){
     //Eliminate Commas
@@ -131,6 +126,9 @@ function createIsSeenObject(item){
     return viewable;  
 }
 
+/**
+ * This function creates a templatable object for an authorized view
+ */
 function createLoggedInObject(item){
 
         var provider = {

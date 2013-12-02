@@ -145,8 +145,6 @@ var infoTemplate = "<div class='infoContainer'>" +
 var renameTemplate = "<h3>Name ändern</h3>" +
                      "<input id='newTitle' type='text' class='form-control' value='<%= item.name %>' />";
 
-var ownerTemplate = "<%= item.name %>";
-
 /**
  * Template for the create User Dialog
  */
@@ -166,10 +164,15 @@ var selectTemplate = "<select id='sortionSelect' class='form-control' onchange='
                         "<option value='unseen'>Nur ungesehene Filme</option>" +
                      "</select>";
 
-
+/**
+ * Template for the Dialog when authorization failed
+ */
 var loginErrorTemplate = "<h3>Ungültige Anmeldedaten</h3>" +
                             "<p>Bitte überprüfen sie ihre Angaben und versuchen sie es erneut</p>";
 
+/**
+ * Template for the Dialog when the User was created
+ */
 var userCreatedTemplate = "<h3>Herzlichen Glückwunsch</h3>" +
                             "<p>Ihr Account wurde erfolgreich angelegt und sie können ihn nun verwenden</p>";
 

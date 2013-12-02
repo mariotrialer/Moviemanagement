@@ -153,54 +153,6 @@ function getItemsFromParse(){
     
 }
 
-function getUserItemsFromParse(bool){
-
-    $("#tableBody").html("");
-
-    //Detect the User
-    var user = Parse.User.current();
-
-    var Movie = Parse.Object.extend("Movie");
-    var query = new Parse.Query(Movie);
-    //query.equalTo("user", user);
-    query.find({
-        success: function(results){
-            for(var i = 0; i < results.length; i++){
-                var object = results[i];
-
-                var viewable;
-
-                //Build the JSON Object
-                var provider = {
-                    "name":object.get('title'),
-                    "isSeen":object.get('isSeen'),
-                    "ration":object.get('ration'),
-                    "seenButton":createId(object.get('title'),8)
-                }
-                
-                //Check if Movie was seen
-                if(provider.isSeen){
-                    viewable = createIsSeenObject(provider);
-                    //Append the Button
-                    viewable.isSeenHtml = _.template(seenButtonTemplate, {provider:provider});
-                }else{
-                    viewable = createIsntSeenObject(provider); 
-                    //Append the Button   
-                    viewable.isSeenHtml = _.template(notSeenButtonTemplate, {provider:provider});
-                } 
-
-
-                appendNewMovie(viewable);
-
-                if(bool){
-                    toggleToolBar();
-                }
-
-            } 
-        }
-    })
-}
-
 /**
  * This function gets all items to present to the unauthorized user
  */

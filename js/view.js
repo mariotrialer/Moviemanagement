@@ -175,10 +175,6 @@ function removeOnClickFromStars(){
     $(".star").attr("onclick", "");
 }
 
-function toggleRating(){
-
-}
-
 /**
  * This function templates the tools to each item
  */
@@ -231,30 +227,6 @@ function removeToolBar(){
 function removeMovieFromView(rowId){
     $("#" + rowId).remove();
 }
-
-/**
- * Functions for the dialog
- */
-$("#myModal").on("show", function() {    // wire up the OK button to dismiss the modal when shown
-    $("#myModal a.btn").on("click", function(e) {
-        console.log("button pressed");   // just as an example...
-        $("#myModal").modal('hide');     // dismiss the dialog
-    });
-});
-
-$("#myModal").on("hide", function() {    // remove the event listeners when the dialog is dismissed
-    $("#myModal a.btn").off("click");
-});
-
-$("#myModal").on("hidden", function() {  // remove the actual elements from the DOM when fully hidden
-    $("#myModal").remove();
-});
-
-$("#myModal").modal({                    // wire up the actual modal functionality and show the dialog
-  "backdrop"  : "static",
-  "keyboard"  : true,
-  "show"      : false                     // ensure the modal is shown immediately
-});
 
 /**
  * This function closes the Dialog
@@ -354,7 +326,7 @@ function closeDialog(){
 }
 
 /**
- * This function sorts the table alphabetically
+ * This function sorts the table alphabetically from A to Z
  **/
 function sortAlphabeticallyAscending(){
     
@@ -381,6 +353,9 @@ function sortAlphabeticallyAscending(){
     $("#nameHead").attr("onclick", "sortAlphabeticallyDescending();");
 }
 
+/** 
+ * Sorts the Table Alphabetically from Z to A
+ */
 function sortAlphabeticallyDescending(){
 
     var rows = new Array();
@@ -452,10 +427,6 @@ function destroyErrorField(){
  */
 function clearInputField(){
     $("#movieTitle").val("");
-}
-
-function toggleIsSeenButton(id){
-
 }
 
 /**
@@ -537,6 +508,9 @@ function removeOwnerHead(){
     $("#ownerHead").html("");
 }
 
+/** 
+ * Sets the Head-Text of the Own-Rating-Column
+ */
 function showRateHead(){
     $("#rateHead").html("Eigene Bewertung");   
 }
@@ -629,11 +603,17 @@ function sortListByRatingAscending(){
     }
 }
 
+/**
+ * Shows the Selectbox where the user can apply filters
+ */
 function showSortionSelect(){
     var output = _.template(selectTemplate, {});
     $("#selectContainer").html(output);
 }
 
+/**
+ * Removes the Selectbox where the user can apply filters
+ */
 function removeSortionSelect(){
     $("#sortionSelect").remove();
 }
@@ -745,4 +725,43 @@ function showGreetText(){
 function hideGreetText(){
     $("#titleText").html("Moviemanagement");
 }
+
+/** 
+ * Inserts the isSeenButten into the given element
+ */
+function createSeenButton(id){
+    var seenCellId = createId(id, 3);
+    var seenButtonId = createId(id, 8);
+
+    var provider = {
+        "seenButton":seenButtonId
+    }
+    
+    var output = _.template(seenButtonTemplate, {provider:provider});
+    $("#" + seenCellId).html(output);
+}
+
+/**
+ * Functions for the Modal
+ */
+$("#myModal").on("show", function() { 
+    $("#myModal a.btn").on("click", function(e) {
+        console.log("button pressed");
+        $("#myModal").modal('hide');  
+    });
+});
+
+$("#myModal").on("hide", function() { 
+    $("#myModal a.btn").off("click");
+});
+
+$("#myModal").on("hidden", function() { 
+    $("#myModal").remove();
+});
+
+$("#myModal").modal({                   
+  "backdrop"  : "static",
+  "keyboard"  : true,
+  "show"      : false                   
+});
 
