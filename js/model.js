@@ -2,7 +2,7 @@
  * Establishes connection to the parse server
  */
 function establishParseConnection(){
-    Parse.initialize("6TqDhyYk8m2dVk5QWM6NNHR6fOy6ACZi3q20dzKh", "DJMLFhKf5StPcDDp9fM7PJhtDr8R1xHfp26E8Ja1");
+    Parse.initialize("woD5HM7837BYtEjAMgNfkvDkcLzO4zuQtDIZZack", "XuzTiQCDSYzIh09G1WXbFtIIQltb2hLt9VcaIOdJ");
 }
 
 /**
